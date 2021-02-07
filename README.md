@@ -1,1 +1,1 @@
-# praticeTasks
+# Checkout Kata
