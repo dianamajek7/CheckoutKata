@@ -10,7 +10,7 @@ public class StockItem {
 
     public StockItem(char item, float unitPrice) {
         this.item = item;
-        this.itemId = UUID.randomUUID().toString(); //initializing a unique random identifier for each stock
+        this.itemId = UUID.randomUUID().toString(); //initializing a unique random identifier for each stock item
         this.unitPrice = unitPrice;
     }
 
