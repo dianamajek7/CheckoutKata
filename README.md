@@ -6,7 +6,8 @@ In a normal supermarket, items are identified by ‘stock keeping units’ or �
 individual letters of the alphabet, A, B, C etc, as the SKUs. Our goods are priced individually. In addition,
 some items are multipriced: buy n of them and which will cost you y. For example, item A might cost 50
 pence individually but this week we have a special offer where you can buy 3 As for £1.30.
-This week’s prices are the following:
+
+#### This week’s prices are the following:
 
 - Item A | Unit Price: 50 | Special Price: 3 for 130
 - Item B | Unit Price: 30 | Special Price: 2 for 45
