@@ -1,6 +1,6 @@
 public class SpecialPrice {
 
-    private StockItem stockItem;
+    private StockItem stockItem;    //Has-A relationship through composition
     private float discountPrice;
     private int noOfItem;
 
