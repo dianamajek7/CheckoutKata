@@ -1,9 +1,9 @@
-import Wholesale.WholesaleUtil;
+package Shopping;
 
 import java.util.logging.Logger;
 
-public class Shopping {
-    private static final Logger LOGGER = Logger.getLogger( Shopping.class.getName() );
+public class Basket {
+    private static final Logger LOGGER = Logger.getLogger( Basket.class.getName() );
 //    SkuUtil skuUtil;
 //    Set<Pro>
 //    public Shopping() {

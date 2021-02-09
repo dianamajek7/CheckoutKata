@@ -2,10 +2,7 @@ package Wholesale;
 
 import Stock.Product;
 
-import java.util.logging.Logger;
-
 public class SpecialPrice {
-    private static final Logger LOGGER = Logger.getLogger( SpecialPrice.class.getName() );
 
     private Product product;    //Has-A relationship through composition
     private float discountPrice;
