@@ -1,13 +1,18 @@
 package util;
 
+import Stock.StockUtil;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SkuUtil {
-    public List<String> getInputFromResource(String fileName) {
+    private static final Logger LOGGER = Logger.getLogger( SkuUtil.class.getName() );
+
+    public List<String> readInputFromResource(String fileName) {
         List<String> inputList = new ArrayList<>();
         BufferedReader reader;
         try {
