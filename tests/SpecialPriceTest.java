@@ -13,11 +13,11 @@ public class SpecialPriceTest {
         //then
         assertEquals('A', specialPrice.getStockItem().getName());
         assertEquals(130f, specialPrice.getDiscountPrice());
-        assertEquals(3, specialPrice.getNoOfItem());
+        assertEquals(3, specialPrice.getNoOfItems());
     }
 
     @Test
-    public void validateSpecialPrice_With_MultipleItem() {
+    public void validateSpecialPrice_With_MultipleItems() {
         StockItem stockItem = new StockItem('A', 50);
         StockItem stockItem2 = new StockItem('B', 30);
         SpecialPrice specialPrice = new SpecialPrice(stockItem, 3, 130f);
@@ -25,11 +25,11 @@ public class SpecialPriceTest {
 
         assertEquals('A', specialPrice.getStockItem().getName());
         assertEquals(130f, specialPrice.getDiscountPrice());
-        assertEquals(3, specialPrice.getNoOfItem());
+        assertEquals(3, specialPrice.getNoOfItems());
 
         assertEquals('B', specialPrice2.getStockItem().getName());
         assertEquals(45f, specialPrice2.getDiscountPrice());
-        assertEquals(2, specialPrice2.getNoOfItem());
+        assertEquals(2, specialPrice2.getNoOfItems());
     }
 
 

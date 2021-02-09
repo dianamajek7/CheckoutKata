@@ -2,17 +2,17 @@ public class SpecialPrice {
 
     private StockItem stockItem;    //Has-A relationship through composition
     private float discountPrice;
-    private int noOfItem;
+    private int noOfItems;
 
-    public SpecialPrice(StockItem stockItem, int noOfItem, float discountPrice) {
+    public SpecialPrice(StockItem stockItem, int noOfItems, float discountPrice) {
         this.stockItem = stockItem;
         this.discountPrice = discountPrice;
-        this.noOfItem = noOfItem;
+        this.noOfItems = noOfItems;
     }
 
     public StockItem getStockItem() { return stockItem; }
 
     public float getDiscountPrice() { return discountPrice; }
 
-    public int getNoOfItem() { return noOfItem; }
+    public int getNoOfItems() { return noOfItems; }
 }
