@@ -2,7 +2,6 @@ package Wholesale;
 
 import Stock.Product;
 import Stock.StockItems;
-import java.util.logging.Formatter;
 import util.SkuUtil;
 
 import java.util.List;
