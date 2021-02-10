@@ -9,7 +9,7 @@ public class SpecialPriceTest {
     public void validateSpecialPrice_WithAnItem() {
         //given
         Product product = new Product('A', 50);
-        SpecialPrice specialPrice = new SpecialPrice(product, 3, 130f);
+        SpecialPrice specialPrice = new SpecialPrice(product, 3, 130);
 
         //then
         assertEquals('A', specialPrice.getStockItem().getName());
@@ -21,8 +21,8 @@ public class SpecialPriceTest {
     public void validateSpecialPrice_With_MultipleItems() {
         Product product = new Product('A', 50);
         Product product2 = new Product('B', 30);
-        SpecialPrice specialPrice = new SpecialPrice(product, 3, 130f);
-        SpecialPrice specialPrice2 = new SpecialPrice(product2, 2, 45f);
+        SpecialPrice specialPrice = new SpecialPrice(product, 3, 130);
+        SpecialPrice specialPrice2 = new SpecialPrice(product2, 2, 45);
 
         assertEquals('A', specialPrice.getStockItem().getName());
         assertEquals(130f, specialPrice.getDiscountPrice());

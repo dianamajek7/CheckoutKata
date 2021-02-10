@@ -38,17 +38,17 @@ public class StockItems {
         //loads the existing inventory from file
         items.forEach(item -> {
             String itemName = item.split(" ")[0];   //each line in the file contains a space between the item and the unitPrice
-            float unitPrice = Float.parseFloat(item.split(" ")[1]);
+            int unitPrice = Integer.parseInt(item.split(" ")[1]);
             Product product = new Product(itemName.charAt(0), unitPrice);
 
             this.addProduct(product);
         });
     }
 
-    public String addStockItem(char itemName, float unitPrice, String writeFile) {
+    public String addStockItem(char itemName, int unitPrice, String writeFile) {
 
         //filter the list of stocks to validate if item already exists
-        List<Product> productsFiltered = Utility.filter(this.getProducts(), e->e.getName() == itemName && e.getUnitPrice() == unitPrice);
+        List<Product> productsFiltered = Utility.filter(this.getProducts(), e->e.getName() == itemName);
         String msg = null;
 
         if(productsFiltered.size() > 0) {
@@ -79,7 +79,7 @@ public class StockItems {
 
             if(productsFiltered.size() == 1){
                 String line = item + " " + productsFiltered.stream().findFirst().get().getUnitPrice();
-                deleteALineFromFile(fileName, line);
+                deleteALineFromFile(fileName, line);    //removes the last line from file that matches the itemName
             }
 
         }

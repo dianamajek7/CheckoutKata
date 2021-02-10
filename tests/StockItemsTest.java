@@ -43,14 +43,13 @@ public class StockItemsTest {
         //when
         stockItems.loadStockItems(items);
         assertEquals(items.size(), stockItems.getProducts().size());    //checking the current size
-        String msg = stockItems.addStockItem('F', 50f, TEST_ITEM_FILE);
+        String msg = stockItems.addStockItem('F', 50, TEST_ITEM_FILE);
 
         //then
         assertNull(msg); //no error message with input
         assertEquals(skuUtil.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());  //validate the increment in size of list
         msg = stockItems.removeStockItem('F', TEST_ITEM_FILE);
         assertNull(msg);
-        //removeLastLineFromFile(TEST_ITEM_FILE);    //removed input in file, to be reused by other test cases
 
     }
 
@@ -58,7 +57,7 @@ public class StockItemsTest {
     public void validateInventory_addItem_ThatExists() {
         //when
         stockItems.loadStockItems(items);
-        String msg = stockItems.addStockItem('B', 30f, TEST_ITEM_FILE);
+        String msg = stockItems.addStockItem('B', 30, TEST_ITEM_FILE);
 
         //then
         assertNotNull(msg);
@@ -71,7 +70,7 @@ public class StockItemsTest {
 
         //when
         stockItems.loadStockItems(items);
-        String msg = stockItems.addStockItem('L', 99f, TEST_ITEM_FILE);
+        String msg = stockItems.addStockItem('L', 99, TEST_ITEM_FILE);
 
         //then
         assertEquals(skuUtil.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());

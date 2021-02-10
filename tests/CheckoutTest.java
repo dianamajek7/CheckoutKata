@@ -1,7 +1,11 @@
 import Shopping.Basket;
 import Shopping.Checkout;
+import Stock.StockItems;
+import Wholesale.SpecialOffers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import util.Utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -9,12 +13,24 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class CheckoutTest {
     Basket basket;
     Checkout checkout;
+    StockItems stockItems;
+    SpecialOffers specialOffers;
 
     @BeforeEach()
     public void setUp(){
         //given
-        basket = new Basket();
-        checkout = new Checkout();
+        stockItems = new StockItems();
+        specialOffers = new SpecialOffers();
+        Utility.initialise(stockItems, specialOffers);
+        basket = new Basket(stockItems);
+        checkout = new Checkout(specialOffers);
+
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        stockItems = new StockItems();
+        specialOffers = new SpecialOffers();
     }
 
     @Test
@@ -37,7 +53,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(95f, checkout.getTotal());
+        assertEquals(95, checkout.getTotal());
         assertEquals(2, basket.getItemsTotal().size());
     }
 
@@ -151,7 +167,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(135f, checkout.getTotal());
+        assertEquals(135, checkout.getTotal());
         assertEquals(1, basket.getItemsTotal().size());
     }
 
@@ -163,7 +179,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(395f, checkout.getTotal());
+        assertEquals(395, checkout.getTotal());
         assertEquals(2, basket.getItemsTotal().size());
     }
 
@@ -186,7 +202,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(175f, checkout.getTotal());
+        assertEquals(175, checkout.getTotal());
     }
 
     @Test
@@ -197,7 +213,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(3, basket.getShoppingBasket().size());
-        assertEquals(190f, checkout.getTotal());
+        assertEquals(190, checkout.getTotal());
     }
 
     @Test
@@ -208,7 +224,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(3, basket.getShoppingBasket().size());
-        assertEquals(190f, checkout.getTotal());
+        assertEquals(190, checkout.getTotal());
         assertEquals(3, basket.getItemsTotal().size());
     }
 

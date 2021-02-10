@@ -37,7 +37,8 @@ public class SkuUtil {
         try {
             if(!inputLine.isEmpty()) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-                writer.append(inputLine);
+                writer.newLine();
+                writer.append(inputLine);   //writes to the file specified
                 writer.close();
                 LOGGER.log(Level.FINE, FILEOPERAATION_SUCCESSFUL);
             }
@@ -53,22 +54,21 @@ public class SkuUtil {
         try {
             File oldFile = new File(fileName);
 
-            //create temp File under current directory
+            //create temp File under current directory,
             String tempFileName = fileName.split("resources/")[0] + "resources/" + fileName.split("resources/")[1] + "_";
             File tempFile = new File(tempFileName);
             PrintWriter tempFilePw = new PrintWriter(tempFileName);
-
             Scanner scan = new Scanner (oldFile);
             while (scan.hasNext())
             {
                 String buffer = scan.nextLine();
                 if (!buffer.contains(inputLine)) {
                     if (!buffer.equals("")) {
-                        tempFilePw.println(buffer);
+
+                        tempFilePw.println(buffer); //copy all existing items aside from the one to be deleted
                     }
                 }
             }
-
             tempFilePw.flush();
             tempFilePw.close();
             scan.close();

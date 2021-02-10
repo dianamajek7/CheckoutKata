@@ -1,20 +1,23 @@
 import Shopping.Basket;
+import Shopping.Checkout;
+import Stock.StockItems;
 import Wholesale.SpecialOffers;
+import util.Utility;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.util.Objects.isNull;
-import static util.Constants.NULLFOUND;
-import static util.Constants.NUMERIC_ERROR;
 
 public class UI {
     private static final Logger LOGGER = Logger.getLogger( SpecialOffers.class.getName() );
-    public static void main(String[] args) {
+    static StockItems stockItems = new StockItems();
+    static SpecialOffers specialOffers =  new SpecialOffers();
+    static Basket basket = new Basket(stockItems);
+    static Checkout checkout = new Checkout(specialOffers);
 
+    public static void main(String[] args) {
+        Utility.initialise(stockItems, specialOffers);
         System.out.println("Welcome");
         System.out.println("Enter 1 to Add item to your basket" );
         System.out.println("Enter 2 to Modify Stocks" );
@@ -24,9 +27,9 @@ public class UI {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
-        String errorMessage = Validator.isNumeric(userInput, LOGGER);
+        String errorMessage = UIValidator.isNumeric(userInput, LOGGER);
         if(isNull(errorMessage)) {
-            menu(Integer.parseInt(userInput));
+            menu(Integer.parseInt(userInput));  //loads each UI path, plays a role of a route
         }else{
             System.out.println(errorMessage);
         }
@@ -34,17 +37,20 @@ public class UI {
 
     }
 
-    public static void menu(int option) {
+    private static void menu(int option) {
 
         switch(option) {
             case 1:
-                UIMapper.loadBasket();
+                UIMapper.loadBasket(basket, checkout);
                 break;
             case 2:
-                UIMapper.modifyStocks();
+                UIMapper.modifyStocks(stockItems);
                 break;
             case 3:
-                UIMapper.modifySpecialPrice();
+                UIMapper.modifySpecialPrice(stockItems, specialOffers);
+                break;
+            default:
+                System.out.println("Invalid Option");
                 break;
         }
 

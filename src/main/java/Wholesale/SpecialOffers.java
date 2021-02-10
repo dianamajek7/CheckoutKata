@@ -45,10 +45,10 @@ public class SpecialOffers {
             Set<Product> filtered = stockItems.stream().filter(item -> item.getName() == itemName).collect(Collectors.toSet());
 
             if(filtered.size() == 1) {
-                float unitPrice = filtered.stream().findFirst().get().getUnitPrice();
+                int unitPrice = filtered.stream().findFirst().get().getUnitPrice();
 
                 int noOfItems = Integer.parseInt(sp.split(" ")[1]);
-                float discountPrice = Float.parseFloat(sp.split(" ")[3]);
+                int discountPrice = Integer.parseInt(sp.split(" ")[3]);
                 SpecialPrice specialPrice = new SpecialPrice(new Product(itemName, unitPrice), noOfItems, discountPrice);
 
                 this.addSpecialPrice(specialPrice);
@@ -58,7 +58,7 @@ public class SpecialOffers {
 
     }
 
-    public String addSpecialOffer(char itemName, int noOfItems, float discountPrice, Set<Product> stockItems, String writeFile) {
+    public String addSpecialOffer(char itemName, int noOfItems, int discountPrice, Set<Product> stockItems, String fileName) {
         //filter the list of pricingRules to validate if rule already exists
         List<SpecialPrice> priceRuleFiltered = Utility.filter(this.getSpecialOffers(), e->e.getStockItem().getName() == itemName && e.getNoOfItems() == noOfItems);
 
@@ -73,7 +73,7 @@ public class SpecialOffers {
                 SpecialPrice specialPrice = new SpecialPrice(filtered.stream().findFirst().get(), noOfItems, discountPrice);
                 this.addSpecialPrice(specialPrice);
                 String newOffer = itemName + " " + noOfItems + " for " + discountPrice; //to keep file updated
-                writeToFile(writeFile, newOffer);
+                writeToFile(fileName, newOffer);
             } else {
                 msg = ITEM_NOTFOND + ": " + itemName;
                 LOGGER.log(Level.SEVERE, msg);
@@ -95,7 +95,7 @@ public class SpecialOffers {
 
             this.specialOffers.removeIf(e -> e.getNoOfItems() == noOfItems && e.getStockItem().getName() == item);
             String line = item + " " + noOfItems + " for ";
-            deleteALineFromFile(fileName, line);
+            deleteALineFromFile(fileName, line);    //removes line containing the specific field from file to keep updated for a fresh reload
         }
 
         return msg;

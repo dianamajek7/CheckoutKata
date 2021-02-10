@@ -2,14 +2,14 @@ package Stock;
 
 public class Product {
     private char name;
-    private float unitPrice;
+    private int unitPrice;
 
-    public Product(char name, float unitPrice) {
+    public Product(char name, int unitPrice) {
         this.name = name;
         this.unitPrice = unitPrice;
     }
 
     public char getName() { return name; }
-    public float getUnitPrice() { return unitPrice; }
+    public int getUnitPrice() { return unitPrice; }
 
 }

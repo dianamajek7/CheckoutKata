@@ -19,3 +19,8 @@ the two B’s and price them at 45 (for a total price so far of 95).
 
 Extra points: Because the pricing changes frequently we will need to be able to pass in a set of pricing
 rules each time we start handling a checkout transaction.
+
+### Approach 
+- The Design Pattern used in this application followed a TDD Approach with the use of OOP SOLID patterns
+    - within Solid pattern
+

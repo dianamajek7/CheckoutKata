@@ -1,6 +1,10 @@
 import Shopping.Basket;
+import Stock.StockItems;
+import Wholesale.SpecialOffers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import util.Utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -9,11 +13,21 @@ import static util.Constants.NULLFOUND;
 
 public class BasketTest {
     Basket basket;
+    StockItems stockItems;
+    SpecialOffers specialOffers;
 
     @BeforeEach()
     public void setUp(){
         //given
-        basket = new Basket();
+        stockItems = new StockItems();
+        specialOffers = new SpecialOffers();
+        Utility.initialise(stockItems, specialOffers);
+        basket = new Basket(stockItems);
+    }
+    @AfterEach
+    public void cleanUp() {
+        stockItems = new StockItems();
+        specialOffers = new SpecialOffers();
     }
 
     @Test

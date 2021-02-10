@@ -19,10 +19,8 @@ public class Basket {
     private final Map<Product, Integer> itemsTotal;
     StockItems stockItems;
 
-    public Basket() {
-        this.stockItems = new StockItems();
-        BasketUtil.initialiseStocks(stockItems);
-
+    public Basket(StockItems stockItems) {
+        this.stockItems = stockItems;
         this.shoppingBasket = new HashMap<>();
         this.itemsTotal = new HashMap<>();
     }
@@ -84,11 +82,10 @@ public class Basket {
     private void loadReceipt() {
         int itemTotal;
         for (Map.Entry<Product, Integer> basket : this.shoppingBasket.entrySet()) {
-            int unitPrice = (int) basket.getKey().getUnitPrice();
-            char itemName = basket.getKey().getName();
+            int unitPrice = basket.getKey().getUnitPrice();
             int noOfOccurrence = basket.getValue();
 
-            itemTotal = unitPrice * noOfOccurrence;
+            itemTotal = unitPrice * noOfOccurrence; //scanning no of item for a product and returning the total
             this.itemsTotal.put(basket.getKey(), itemTotal);
         }
 
