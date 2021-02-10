@@ -38,7 +38,7 @@ rules each time we start handling a checkout transaction.
     - the CheckoutTest Class handles the different edge cases
 - Classes like Checkout and Basket class consists of operations which occurs in a real world 
     - i.e: a shopping cart with a list of items and the no of occurrence including returning the total price of each item occurrence in the basket.
-- The application uses core Java with no Maven or additional third-Party libraries it should be straightforward to clone and spin up on any local machine
+- The application uses core Java (JAVA 8) with no Maven or additional third-Party libraries it should be straightforward to clone and spin up on any local machine
 
 ### Application Functionality
 - To keep track of operations made between menu option 2 and menu option, it stores the wholesale and inventory list in a file located under resources
