@@ -24,5 +24,5 @@ public class Utility {
             }
         }
         return filtered;
-    }//List<Stock.StockItem> filtered = Utility.filter(stocks, e->e.getName() == itemName);
+    }
 }
