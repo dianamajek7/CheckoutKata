@@ -27,6 +27,9 @@ rules each time we start handling a checkout transaction.
     - The application also enforces encapsulation, Overloading, and Composition through a HAS-A relationships between entities 
         - i.e (between Product : StockItems) One to Many Relationship
     - Enforces the use Functional Programming and Lambda Functions
+    - With the use OOP approach opens flexibility for reusable code and possible future migrations 
+    -   i.e(making use of constants to make it easier for future change to a final variable in one location)
+    -   The logic, presentation entities and views are well separated and managed
         
 ### Application
 - This is a standalone console application with no UI
@@ -42,8 +45,9 @@ rules each time we start handling a checkout transaction.
     - Unit tests also has its files for both the Inventory and Wholesale list
 - There are three menu options on the initial run of the application: 
     - To do shopping by adding items into the cart and a receipt is generated
+        - validator - ensures to validate input with an exisitng Sku/itemName
     - To add or remove a stock item, once operation is completed it is updated in the file, making it reusable
-          - It also avoids duplicate item name to be added in the inventory list
+          - It also avoids duplicate item name (SKUs) to be added in the inventory list 
     - To add or remove a Special Pricing rule for an item, once operation is completed it is updated in the file, making it reusable
         - It avoids duplicate Pricing rule with same itemName and no of item on offer
   
