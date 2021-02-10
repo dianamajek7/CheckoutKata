@@ -25,6 +25,7 @@ public class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(0, basket.getShoppingBasket().size());
+        assertEquals(0, basket.getItemsTotal().size());
         assertEquals(0, checkout.getTotal());
     }
 
@@ -37,6 +38,7 @@ public class CheckoutTest {
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
         assertEquals(95f, checkout.getTotal());
+        assertEquals(2, basket.getItemsTotal().size());
     }
 
 
@@ -82,6 +84,7 @@ public class CheckoutTest {
         assertNull(msg);
         assertEquals(4, basket.getShoppingBasket().size());
         assertEquals(115f, checkout.getTotal());
+        assertEquals(4, basket.getItemsTotal().size());
     }
 
     @Test
@@ -105,7 +108,7 @@ public class CheckoutTest {
         assertEquals(1, basket.getShoppingBasket().size());
         assertEquals(130f, checkout.getTotal());
     }
-////////
+
     @Test
     public void validate_calcTotal_WithDiscount_AndNoneDiscountItem_WithOccurrenceOfFour_InBasket(){
         //when
@@ -126,6 +129,7 @@ public class CheckoutTest {
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
         assertEquals(230f, checkout.getTotal());
+        assertEquals(1, basket.getItemsTotal().size());
     }
 
     @Test
@@ -148,6 +152,7 @@ public class CheckoutTest {
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
         assertEquals(135f, checkout.getTotal());
+        assertEquals(1, basket.getItemsTotal().size());
     }
 
     @Test
@@ -159,7 +164,9 @@ public class CheckoutTest {
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
         assertEquals(395f, checkout.getTotal());
+        assertEquals(2, basket.getItemsTotal().size());
     }
+
     @Test
     public void validate_calcTotal_WithNoneDiscountAndDiscountItems_WithOccurrenceOfFour_InBasket(){
         //when
@@ -202,6 +209,7 @@ public class CheckoutTest {
         assertNull(msg);
         assertEquals(3, basket.getShoppingBasket().size());
         assertEquals(190f, checkout.getTotal());
+        assertEquals(3, basket.getItemsTotal().size());
     }
 
 }

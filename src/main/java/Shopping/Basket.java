@@ -16,6 +16,7 @@ public class Basket {
     private static final Logger LOGGER = Logger.getLogger( Basket.class.getName() );
 
     private final Map<Product, Integer> shoppingBasket;
+    private final Map<Product, Integer> itemsTotal;
     StockItems stockItems;
 
     public Basket() {
@@ -23,9 +24,15 @@ public class Basket {
         BasketUtil.initialiseStocks(stockItems);
 
         this.shoppingBasket = new HashMap<>();
+        this.itemsTotal = new HashMap<>();
     }
 
     public Map<Product, Integer> getShoppingBasket() { return shoppingBasket; }
+
+    public Map<Product, Integer> getItemsTotal() {
+        loadReceipt();
+        return itemsTotal;
+    }
 
     public String addItemToBasket(String inputItems) {
         String msg = null;
@@ -35,7 +42,7 @@ public class Basket {
             return msg;
         }
 
-        Map<Character, Integer> items = extractItems(inputItems);   //extract the product and total no of occurrence
+        Map<Character, Integer> items = extractItems(inputItems.toUpperCase());   //extract the product and total no of occurrence
         for(Map.Entry<Character, Integer> entry : items.entrySet()) {
             Character key = entry.getKey();
             Integer noOfOccurrence = entry.getValue();
@@ -45,6 +52,7 @@ public class Basket {
             if(productsFiltered.size() == 1) {
                 Product product = productsFiltered.stream().findFirst().get();
                 shoppingBasket.put(product, noOfOccurrence);
+
             } else if (productsFiltered.size() == 0) {
                 msg = ITEM_NOTFOND + ": "+ key;
                 LOGGER.log(Level.SEVERE, msg);
@@ -73,4 +81,16 @@ public class Basket {
         return items;
     }
 
+    private void loadReceipt() {
+        int itemTotal;
+        for (Map.Entry<Product, Integer> basket : this.shoppingBasket.entrySet()) {
+            int unitPrice = (int) basket.getKey().getUnitPrice();
+            char itemName = basket.getKey().getName();
+            int noOfOccurrence = basket.getValue();
+
+            itemTotal = unitPrice * noOfOccurrence;
+            this.itemsTotal.put(basket.getKey(), itemTotal);
+        }
+
+    }
 }

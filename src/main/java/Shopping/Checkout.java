@@ -6,6 +6,7 @@ import Wholesale.SpecialOffers;
 import Wholesale.SpecialPrice;
 import util.Utility;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import static Shopping.BasketUtil.initialiseWholeSale;
 public class Checkout {
 
     private float total;
+
     StockItems stockItems;
     SpecialOffers specialOffers;
 
@@ -21,8 +23,7 @@ public class Checkout {
         this.specialOffers = new SpecialOffers();
         this.stockItems = new StockItems();
         initialiseWholeSale(stockItems, specialOffers);
-        this.total = 0;
-
+        this.total = 0f;
     }
 
     public float getTotal() { return total; }
@@ -30,20 +31,23 @@ public class Checkout {
     public void calculateTotal(Map<Product, Integer> shoppingBasket) {
         int calcTotal = 0;
         int itemTotal;
+
+
         //calculates each item in the basket total price and applies discount if appropriate
-        for(Map.Entry<Product, Integer> entry : shoppingBasket.entrySet()) {
-            int unitPrice = (int) entry.getKey().getUnitPrice();
-            char itemName = entry.getKey().getName();
-            int noOfOccurrence = entry.getValue();
+        for(Map.Entry<Product, Integer> basket : shoppingBasket.entrySet()) {
+            int unitPrice = (int) basket.getKey().getUnitPrice();
+            char itemName = basket.getKey().getName();
+            int noOfOccurrence = basket.getValue();
 
             itemTotal = unitPrice * noOfOccurrence;
 
             List<SpecialPrice> filteredPriceRule = Utility.filter(specialOffers.getSpecialOffers(), e-> e.getStockItem().getName() == itemName && noOfOccurrence >= e.getNoOfItems());
             itemTotal = applySpecialPrice(filteredPriceRule, itemTotal, noOfOccurrence, unitPrice);
 
+
             calcTotal += itemTotal;
         }
-        total = (float)calcTotal;
+        this.total = (float)calcTotal;
     }
 
     private int applySpecialPrice(List<SpecialPrice> filteredPriceRule, int itemTotal, int noOfOccurrence, int unitPrice){
@@ -60,9 +64,13 @@ public class Checkout {
                 int itemReduced = noOfOccurrence / noOfItems;  //reduced item deducted from wholesale quantity
 
                 itemTotal -= priceDifference * itemReduced ;
+
+
+
             }
         }
         return  itemTotal;
     }
+
 
 }

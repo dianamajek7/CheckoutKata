@@ -24,6 +24,7 @@ public class BasketTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
+        assertEquals(2, basket.getItemsTotal().size());
     }
 
     @Test
@@ -32,7 +33,8 @@ public class BasketTest {
         String msg = basket.addItemToBasket(null);
         //then
         assertEquals(NULLFOUND, msg);
-
+        assertEquals(0, basket.getShoppingBasket().size());
+        assertEquals(0, basket.getItemsTotal().size());
     }
 
     @Test
@@ -42,6 +44,7 @@ public class BasketTest {
         //then
         assertEquals(3, basket.getShoppingBasket().size());
         assertEquals(ITEM_NOTFOND  + ": Z", msg);
+        assertEquals(3, basket.getItemsTotal().size());
 
     }
 }
