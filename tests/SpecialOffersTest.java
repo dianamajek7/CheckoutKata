@@ -1,6 +1,6 @@
 import Stock.StockItems;
 import Wholesale.SpecialOffers;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.SkuUtil;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static util.Constants.*;
-import static util.SkuUtil.removeLastLineFromFile;
 
 public class SpecialOffersTest {
     SkuUtil skuUtil;
@@ -28,20 +27,14 @@ public class SpecialOffersTest {
          specialOffers = new SpecialOffers();
     }
 
-//    @Test
-//    public void validateInventory_LoadStocks() {
-//        //given
-//        SkuUtil skuUtil = new SkuUtil();
-//        List<String> items = skuUtil.readInputFromResource("Items");
-//        StockItems stockItems = new StockItems();
-//        //when
-//        stockItems.loadStockItems(items);
-//
-//        //then
-//        assertNotNull(product.size());
-//        assertEquals(5, product.size());
-//    }
-//
+    @AfterEach
+    public void cleanUp() {
+        items = null;
+        stockItems = null;
+        specialPrices = null;
+        specialOffers = null;
+    }
+
     @Test
     public void validateWholeSale_LoadSpecialOffers() {
         //when
@@ -53,17 +46,19 @@ public class SpecialOffersTest {
     }
 
     @Test
-    public void validateWholeSale_addSpecialPrice_With_ANewPricingRule() {
+    public void validateWholeSale_With_ANewPricingRule() {
         //when
         stockItems.loadStockItems(items);
         specialOffers.loadSpecialOffers(specialPrices, stockItems.getProducts());
         assertEquals(specialPrices.size(), specialOffers.getSpecialOffers().size());    //checking the current size
-        String msg = specialOffers.addSpecialOffers('E', 4, 95, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('E', 4, 95f, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertNull(msg); //no error message with input
-        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialPrices.size());  //validate the increment in size of list
-        removeLastLineFromFile(TEST_SPECIALPRICE_FILE);    //removed input in file, to be reused by other test cases
+        assertEquals(specialPrices.size() + 1, specialOffers.getSpecialOffers().size());  //validate the increment in size of list
+
+        msg = specialOffers.removeSpecialOffer('E', 4, TEST_SPECIALPRICE_FILE); //removed input in file, to be reused by other test cases
+        assertNull(msg);
 
     }
 
@@ -73,12 +68,12 @@ public class SpecialOffersTest {
         stockItems.loadStockItems(items);
         specialOffers.loadSpecialOffers(specialPrices, stockItems.getProducts());
         assertEquals(specialPrices.size(), specialOffers.getSpecialOffers().size());
-        String msg = specialOffers.addSpecialOffers('B', 2, 45, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('B', 2, 45f, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertNotNull(msg);
-        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialPrices.size());
-        assertEquals("Special Pricing already exist", msg);
+        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
+        assertEquals(PRICINGRULE_EXIST, msg);
     }
 
     @Test
@@ -87,21 +82,21 @@ public class SpecialOffersTest {
         stockItems.loadStockItems(items);
         specialOffers.loadSpecialOffers(specialPrices, stockItems.getProducts());
         assertEquals(specialPrices.size(), specialOffers.getSpecialOffers().size());
-        String msg = specialOffers.addSpecialOffers('F', 2, 45, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('F', 2, 45f, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertNotNull(msg);
-        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialPrices.size());
-        assertEquals("Item Specified not Found for F", msg);
+        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
+        assertEquals(ITEM_NOTFOND + ": F", msg);
     }
 
     @Test
-    public void validateWholeSale_AddAndRemove_NewPricingRue() {
+    public void validateWholeSale_Remove_PricingRule() {
 
         //when
         stockItems.loadStockItems(items);
         specialOffers.loadSpecialOffers(specialPrices, stockItems.getProducts());
-        String msg = specialOffers.addSpecialOffers('A', 7, 50, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('A', 7, 50f, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertEquals(specialPrices.size() + 1, specialOffers.getSpecialOffers().size());
@@ -114,30 +109,7 @@ public class SpecialOffersTest {
     }
 
     @Test
-    public void validateInventory_removeOldPricingRule_whilstAddingNewRule() {
-
-        //when
-        stockItems.loadStockItems(items);
-        specialOffers.loadSpecialOffers(specialPrices, stockItems.getProducts());
-        String msg = specialOffers.addSpecialOffers('A', 7, 50, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
-
-        //then
-        assertNull(msg);
-        assertEquals(specialPrices.size() + 1, specialOffers.getSpecialOffers().size());
-
-        msg = specialOffers.removeSpecialOffer('B', 3, TEST_SPECIALPRICE_FILE);
-        assertNull(msg);
-        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size()); //latest pricing rule file size
-
-        // add back the original price rule before deletion
-        msg = specialOffers.removeSpecialOffer('A', 7, TEST_SPECIALPRICE_FILE);
-        assertNull(msg);
-        msg = specialOffers.addSpecialOffers('B', 3, 75, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
-        assertNull(msg);
-    }
-
-    @Test
-    public void validateInventory_removeStock_WithANonExistingItem() {
+    public void validateInventory_removeNonExisting_PricingRule() {
 
         //when
         stockItems.loadStockItems(items);

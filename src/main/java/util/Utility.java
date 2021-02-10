@@ -14,5 +14,15 @@ public class Utility {
             }
         }
         return filtered;
+    }
+
+    public static <T> List<T> filter(List<T> list, Predicate<T> test){
+        List<T> filtered = new ArrayList<>();
+        for(T t : list) {
+            if(test.test(t)) {
+                filtered.add(t);
+            }
+        }
+        return filtered;
     }//List<Stock.StockItem> filtered = Utility.filter(stocks, e->e.getName() == itemName);
 }

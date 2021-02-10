@@ -37,9 +37,7 @@ public class SkuUtil {
         try {
             if(!inputLine.isEmpty()) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-                writer.write(inputLine);
-                writer.newLine();
-               // writer.append(inputLine);
+                writer.append(inputLine);
                 writer.close();
                 LOGGER.log(Level.FINE, FILEOPERAATION_SUCCESSFUL);
             }
@@ -48,27 +46,6 @@ public class SkuUtil {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
         }
 
-    }
-
-    public static void removeLastLineFromFile(String fileName) {
-        try {
-            File file = new File( fileName);
-            RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
-            byte b;
-            long length = randomAccessFile.length();
-            if (length != 0) {
-                do {    //find the linefeed character keep decrementing until found, set new length to be -1 of the file length
-                    length -= 1;
-                    randomAccessFile.seek(length);
-                    b = randomAccessFile.readByte();
-                } while (b != 10 && length > 0);
-                randomAccessFile.setLength(length); //set new length
-                randomAccessFile.close();
-                LOGGER.log(Level.FINE, FILEOPERAATION_SUCCESSFUL);
-            }
-        }catch(Exception e) {
-            LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
-        }
     }
 
     public static void deleteALineFromFile (String fileName, String inputLine)
