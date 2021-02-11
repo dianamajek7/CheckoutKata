@@ -162,6 +162,12 @@ public class UIMapper {
                     int nofItems = Integer.parseInt(str_nofItems);
                     int discountPrice = Integer.parseInt(str_discountPrice);
 
+                    if(nofItems  == 0 || discountPrice == 0){
+                        LOGGER.log(Level.SEVERE, PRICE_ZERO);
+                        System.out.println(PRICE_ZERO);
+                        return;
+                    }
+
                     //adds pricing rule to whole sale list, retrieves an error if occurred during routing
                     errorMessage = specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICE_FILE);
                     if(isNull(errorMessage)){
@@ -218,7 +224,6 @@ public class UIMapper {
                 System.out.println(ALLDETAILS_REQUIRED);
             }
 
-
         }else{
             LOGGER.log(Level.SEVERE, NULLFOUND);
             System.out.println(NULLFOUND);
@@ -235,6 +240,12 @@ public class UIMapper {
                 if(isNull(errorMessage)){
                     char item = userInput.split(" ")[0].toUpperCase().charAt(0);
                     int unitPrice = Integer.parseInt(strUnitPrice);
+
+                    if(unitPrice  == 0){
+                        LOGGER.log(Level.SEVERE, PRICE_ZERO);
+                        System.out.println(PRICE_ZERO);
+                        return;
+                    }
                     errorMessage = stockItems.addStockItem(item, unitPrice, ITEMS_FILE);    //add Item to the list of existing stocks
                     if(isNull(errorMessage)){
                         System.out.println("Success Added, current Stock...");
