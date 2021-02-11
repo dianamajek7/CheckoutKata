@@ -38,14 +38,15 @@ rules each time we start handling a checkout transaction.
     - the CheckoutTest Class handles the different edge cases
 - Classes like Checkout and Basket class consists of operations which occurs in a real world 
     - i.e: a shopping cart with a list of items and the no of occurrence including returning the total price of each item occurrence in the basket.
-- The application uses core Java (JAVA 8) with no Maven or additional third-Party libraries it should be straightforward to clone and spin up on any local machine
+- To run the application - I have added a jar file including the unit tests
+      - it uses core Java with no third-Party libraries, it should be straightforward to spin up on a local machine
 
 ### Application Functionality
 - To keep track of operations made between menu option 2 and menu option, it stores the wholesale and inventory list in a file located under resources
     - Unit tests also has its files for both the Inventory and Wholesale list
 - There are three menu options on the initial run of the application: 
     - To do shopping by adding items into the cart and a receipt is generated
-        - validator - ensures to validate input with an exisitng Sku/itemName
+        - validator - ensures to validate input with an existing Sku/itemName
     - To add or remove a stock item, once operation is completed it is updated in the file, making it reusable
           - It also avoids duplicate item name (SKUs) to be added in the inventory list 
     - To add or remove a Special Pricing rule for an item, once operation is completed it is updated in the file, making it reusable

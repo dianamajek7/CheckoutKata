@@ -33,15 +33,13 @@ public class UI {
         }else{
             System.out.println(errorMessage);
         }
-
-
     }
 
     private static void menu(int option) {
 
         switch(option) {
             case 1:
-                UIMapper.loadBasket(basket, checkout);
+                UIMapper.shopping(basket, checkout, specialOffers);
                 break;
             case 2:
                 UIMapper.modifyStocks(stockItems);

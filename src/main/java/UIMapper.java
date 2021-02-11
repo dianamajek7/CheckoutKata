@@ -1,13 +1,18 @@
 import Shopping.Basket;
 import Shopping.Checkout;
+import Stock.Product;
 import Stock.StockItems;
 import Wholesale.SpecialOffers;
+import Wholesale.SpecialPrice;
 import util.SkuUtil;
+import util.Utility;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static util.Constants.*;
@@ -17,7 +22,7 @@ public class UIMapper {
 
     static SkuUtil skuUtil = new SkuUtil();
 
-    public static void loadBasket(Basket basket, Checkout checkout){
+    public static void shopping(Basket basket, Checkout checkout, SpecialOffers specialOffers){
 
         System.out.println("\nBelow are the list of available Items...");
 
@@ -38,11 +43,27 @@ public class UIMapper {
             checkout.calculateTotal(basket.getShoppingBasket());
 
             float total = checkout.getTotal();
-            System.out.println("Receipt.......");
+
+            System.out.println("\nReceipt.......");
             basket.getItemsTotal().forEach((product, itemTotal) -> {
-                System.out.print("Item: "+ product.getName());
-                System.out.print(" Unit Price: "+ product.getUnitPrice());
-                System.out.println("Item Total: "+ itemTotal);
+
+                Map<Product, Integer> filter =  basket.getShoppingBasket().entrySet().stream()
+                        .filter(x -> product.getName() == x.getKey().getName())
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+                if(filter.size() == 1){
+                   int noOfItemOccurrence = filter.entrySet().stream().findFirst().get().getValue();
+
+                    System.out.print("Item: "+ product.getName() + " | ");
+                    System.out.print("No: "+ noOfItemOccurrence + " | ");
+                    System.out.print("Unit Price: "+ product.getUnitPrice() + " | ");
+                    System.out.println("Accumulated : "+ itemTotal);
+                    //a check for if discount was applied
+                    List<SpecialPrice> sp = Utility.filter(specialOffers.getSpecialOffers(), e->e.getStockItem().getName() == product.getName() && noOfItemOccurrence >= e.getNoOfItems());
+                    if(sp.size() == 1)
+                        System.out.println("Discount Applied");
+                }
+
             });
 
             System.out.println("Total price: "+ total);

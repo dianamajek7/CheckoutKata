@@ -49,7 +49,7 @@ public class Basket {
             List<Product> productsFiltered = Utility.filter(stockItems.getProducts(), e->e.getName() == key);
             if(productsFiltered.size() == 1) {
                 Product product = productsFiltered.stream().findFirst().get();
-                shoppingBasket.put(product, noOfOccurrence);
+                this.shoppingBasket.put(product, noOfOccurrence);
 
             } else if (productsFiltered.size() == 0) {
                 msg = ITEM_NOTFOND + ": "+ key;

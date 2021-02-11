@@ -11,11 +11,10 @@ import java.util.Map;
 public class Checkout {
 
     private float total;
-
     SpecialOffers specialOffers;
 
     public Checkout(SpecialOffers specialOffers) {
-       this.specialOffers = specialOffers;
+        this.specialOffers = specialOffers;
         this.total = 0;
     }
 
@@ -58,7 +57,6 @@ public class Checkout {
                 int itemReduced = noOfOccurrence / noOfItemsOnSale;  //reduced item deducted from wholesale quantity
 
                 itemTotal -= priceDifference * itemReduced ;    //subtracts the difference from the total price of an item
-
             }
         }
         return  itemTotal;
