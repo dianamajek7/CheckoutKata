@@ -39,7 +39,7 @@ rules each time we start handling a checkout transaction.
 - Classes like Checkout and Basket class consists of operations which occurs in a real world 
     - i.e: a shopping cart with a list of items and the no of occurrence including returning the total price of each item occurrence in the basket.
 - To run the application - I have added a jar file including the unit tests
-      - it uses core Java with no third-Party libraries, it should be straightforward to spin up on a local machine
+    - it uses core Java with no third-Party libraries, it should be straightforward to spin up on a local machine
 
 ### Application Functionality
 - To keep track of operations made between menu option 2 and menu option, it stores the wholesale and inventory list in a file located under resources
