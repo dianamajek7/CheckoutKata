@@ -1,4 +1,5 @@
-import Stock.StockItems;
+package stock;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static util.Constants.*;
 
-public class StockItemsTest {
+class StockItemsTest {
     SkuUtil skuUtil;
     StockItems stockItems;
     List<String> items;
@@ -29,7 +30,7 @@ public class StockItemsTest {
 
     }
 
-        @Test
+    @Test
     public void validateInventory_LoadStocks() {
         //when
         stockItems.loadStockItems(items);
@@ -92,4 +93,5 @@ public class StockItemsTest {
         assertEquals(items.size(), stockItems.getProducts().size());    //the size stays the same
 
     }
+
 }

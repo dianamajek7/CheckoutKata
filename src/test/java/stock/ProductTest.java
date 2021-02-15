@@ -1,13 +1,13 @@
-import Stock.Product;
+package stock;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class ProductTest {
-
+class ProductTest {
     @Test
-        public void validateStockItem_ContainsAUniqueCode() {
+    public void validateStockItem_ContainsAUniqueCode() {
         Product product = new Product('A', 50);
         Product product1 = new Product('B', 30);
         assertNotEquals(product.getName(), product1.getName());
@@ -24,4 +24,5 @@ public class ProductTest {
         Product product = new Product('A', 50);
         assertEquals(50, product.getUnitPrice());
     }
+
 }

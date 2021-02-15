@@ -1,6 +1,6 @@
-package Wholesale;
+package wholesale;
 
-import Stock.Product;
+import stock.Product;
 import util.Utility;
 
 import java.util.ArrayList;

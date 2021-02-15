@@ -1,11 +1,11 @@
-import Shopping.Basket;
-import Shopping.Checkout;
-import Stock.Product;
-import Stock.StockItems;
-import Wholesale.SpecialOffers;
-import Wholesale.SpecialPrice;
+import shopping.Basket;
+import shopping.Checkout;
+import stock.Product;
+import stock.StockItems;
 import util.SkuUtil;
 import util.Utility;
+import wholesale.SpecialOffers;
+import wholesale.SpecialPrice;
 
 import java.util.List;
 import java.util.Map;

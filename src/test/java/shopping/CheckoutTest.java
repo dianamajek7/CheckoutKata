@@ -1,16 +1,16 @@
-import Shopping.Basket;
-import Shopping.Checkout;
-import Stock.StockItems;
-import Wholesale.SpecialOffers;
+package shopping;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import stock.StockItems;
 import util.Utility;
+import wholesale.SpecialOffers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class CheckoutTest {
+class CheckoutTest {
     Basket basket;
     Checkout checkout;
     StockItems stockItems;

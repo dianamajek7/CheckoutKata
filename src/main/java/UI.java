@@ -1,8 +1,8 @@
-import Shopping.Basket;
-import Shopping.Checkout;
-import Stock.StockItems;
-import Wholesale.SpecialOffers;
+import shopping.Basket;
+import shopping.Checkout;
+import stock.StockItems;
 import util.Utility;
+import wholesale.SpecialOffers;
 
 import java.util.Scanner;
 import java.util.logging.Logger;

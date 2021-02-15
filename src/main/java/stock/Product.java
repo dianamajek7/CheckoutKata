@@ -1,4 +1,4 @@
-package Stock;
+package stock;
 
 public class Product {
     private char name;

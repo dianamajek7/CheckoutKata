@@ -1,7 +1,7 @@
-package Shopping;
+package shopping;
 
-import Stock.Product;
-import Stock.StockItems;
+import stock.Product;
+import stock.StockItems;
 import util.Utility;
 
 import java.util.*;

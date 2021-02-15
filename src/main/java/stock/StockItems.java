@@ -1,4 +1,4 @@
-package Stock;
+package stock;
 
 import util.Utility;
 

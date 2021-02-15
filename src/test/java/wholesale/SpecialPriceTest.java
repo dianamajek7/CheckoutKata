@@ -1,10 +1,11 @@
-import Stock.Product;
-import Wholesale.SpecialPrice;
+package wholesale;
+
 import org.junit.jupiter.api.Test;
+import stock.Product;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SpecialPriceTest {
+class SpecialPriceTest {
     @Test
     public void validateSpecialPrice_WithAnItem() {
         //given
@@ -32,6 +33,5 @@ public class SpecialPriceTest {
         assertEquals(45f, specialPrice2.getDiscountPrice());
         assertEquals(2, specialPrice2.getNoOfItems());
     }
-
 
 }

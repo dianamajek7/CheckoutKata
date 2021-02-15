@@ -1,7 +1,7 @@
 package util;
 
-import Stock.StockItems;
-import Wholesale.SpecialOffers;
+import stock.StockItems;
+import wholesale.SpecialOffers;
 
 import java.util.ArrayList;
 import java.util.List;

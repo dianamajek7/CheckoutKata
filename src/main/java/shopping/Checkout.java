@@ -1,9 +1,9 @@
-package Shopping;
+package shopping;
 
-import Stock.Product;
-import Wholesale.SpecialOffers;
-import Wholesale.SpecialPrice;
+import stock.Product;
 import util.Utility;
+import wholesale.SpecialOffers;
+import wholesale.SpecialPrice;
 
 import java.util.List;
 import java.util.Map;

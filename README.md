@@ -43,7 +43,7 @@ rules each time we start handling a checkout transaction.
 
 ### Application Functionality
 - To keep track of operations made between menu option 2 and menu option, it stores the wholesale and inventory list in a file located under resources
-    - Unit tests also has its files for both the Inventory and Wholesale list
+    - Unit tests also has its files for both the Inventory and wholesale list
 - There are three menu options on the initial run of the application: 
     - To do shopping by adding items into the cart and a receipt is generated
         - validator - ensures to validate input with an existing Sku/itemName

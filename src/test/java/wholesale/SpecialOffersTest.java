@@ -1,17 +1,18 @@
-import Shopping.Basket;
-import Shopping.Checkout;
-import Stock.StockItems;
-import Wholesale.SpecialOffers;
+package wholesale;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import shopping.Basket;
+import shopping.Checkout;
+import stock.StockItems;
 import util.SkuUtil;
 import util.Utility;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static util.Constants.*;
 
-public class SpecialOffersTest {
+class SpecialOffersTest {
     SkuUtil skuUtil = new SkuUtil();
     StockItems stockItems;
     SpecialOffers specialOffers;
@@ -49,7 +50,7 @@ public class SpecialOffersTest {
         assertNull(msg);
 
     }
-//
+    //
     @Test
     public void validateWholeSale_addSpecialPrice_With_An_ExistingPricingRule() {
         //when
