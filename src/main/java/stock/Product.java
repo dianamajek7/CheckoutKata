@@ -1,15 +1,17 @@
 package stock;
 
-public class Product {
-    private char name;
-    private int unitPrice;
+import java.math.BigDecimal;
 
-    public Product(char name, int unitPrice) {
+public class Product {
+    private final char name;
+    private final BigDecimal unitPrice;
+
+    public Product(char name, BigDecimal unitPrice) {
         this.name = name;
         this.unitPrice = unitPrice;
     }
 
     public char getName() { return name; }
-    public int getUnitPrice() { return unitPrice; }
+    public BigDecimal getUnitPrice() { return unitPrice; }
 
 }

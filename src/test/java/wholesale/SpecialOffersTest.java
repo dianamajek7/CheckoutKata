@@ -6,25 +6,27 @@ import org.junit.jupiter.api.Test;
 import shopping.Basket;
 import shopping.Checkout;
 import stock.StockItems;
-import util.SkuUtil;
 import util.Utility;
+
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static util.Constants.*;
 
 class SpecialOffersTest {
-    SkuUtil skuUtil = new SkuUtil();
     StockItems stockItems;
     SpecialOffers specialOffers;
     Basket basket;
     Checkout checkout;
+    static Utility utility;
 
     @BeforeEach()
     public void setUp(){
         //given
+        utility = new Utility();
         stockItems = new StockItems();
         specialOffers = new SpecialOffers();
-        Utility.initialise(stockItems, specialOffers);
+        utility.initialise(stockItems, specialOffers);
         basket = new Basket(stockItems);
         checkout = new Checkout(specialOffers);
     }
@@ -40,7 +42,7 @@ class SpecialOffersTest {
     public void validateWholeSale_With_ANewPricingRule() {
         //when
         int oldSize = specialOffers.getSpecialOffers().size();
-        String msg = specialOffers.addSpecialOffer('E', 4, 95, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('E', 4, new BigDecimal(95), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertNull(msg); //no error message with input
@@ -54,22 +56,22 @@ class SpecialOffersTest {
     @Test
     public void validateWholeSale_addSpecialPrice_With_An_ExistingPricingRule() {
         //when
-        String msg = specialOffers.addSpecialOffer('B', 2, 45, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('B', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertNotNull(msg);
-        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
+        assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
         assertEquals(PRICINGRULE_EXIST, msg);
     }
 
     @Test
     public void validateWholeSale_addSpecialPrice_With_A_NonExisting_Item() {
         //when
-        String msg = specialOffers.addSpecialOffer('F', 2, 45, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('F', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
 
         //then
         assertNotNull(msg);
-        assertEquals(skuUtil.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
+        assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
         assertEquals(ITEM_NOTFOND + ": F", msg);
     }
 
@@ -77,7 +79,7 @@ class SpecialOffersTest {
     public void validateWholeSale_Remove_PricingRule() {
 
         //when
-        String msg = specialOffers.addSpecialOffer('A', 7, 50, stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        String msg = specialOffers.addSpecialOffer('A', 7, new BigDecimal(50), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
         int oldSize = specialOffers.getSpecialOffers().size();
         //then
         assertNull(msg);

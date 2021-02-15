@@ -3,23 +3,24 @@ package stock;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import util.SkuUtil;
+import util.Utility;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static util.Constants.*;
 
 class StockItemsTest {
-    SkuUtil skuUtil;
     StockItems stockItems;
     List<String> items;
+    static Utility utility;
 
     @BeforeEach()
     public void setUp(){
         //given
-        skuUtil = new SkuUtil();
-        items = skuUtil.readInputFromResource(ITEMS);
+        utility = new Utility();
+        items = utility.readInputFromResource(ITEMS);
         stockItems = new StockItems();
     }
 
@@ -27,7 +28,6 @@ class StockItemsTest {
     public void cleanUp() {
         items = null;
         stockItems = null;
-
     }
 
     @Test
@@ -44,11 +44,11 @@ class StockItemsTest {
         //when
         stockItems.loadStockItems(items);
         assertEquals(items.size(), stockItems.getProducts().size());    //checking the current size
-        String msg = stockItems.addStockItem('F', 50, TEST_ITEM_FILE);
+        String msg = stockItems.addStockItem('F', new BigDecimal(50), TEST_ITEM_FILE);
 
         //then
         assertNull(msg); //no error message with input
-        assertEquals(skuUtil.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());  //validate the increment in size of list
+        assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());  //validate the increment in size of list
         msg = stockItems.removeStockItem('F', TEST_ITEM_FILE);
         assertNull(msg);
 
@@ -58,11 +58,11 @@ class StockItemsTest {
     public void validateInventory_addItem_ThatExists() {
         //when
         stockItems.loadStockItems(items);
-        String msg = stockItems.addStockItem('B', 30, TEST_ITEM_FILE);
+        String msg = stockItems.addStockItem('B', new BigDecimal(30), TEST_ITEM_FILE);
 
         //then
         assertNotNull(msg);
-        assertEquals(skuUtil.readInputFromResource(ITEMS).size(), stockItems.getProducts().size());
+        assertEquals(utility.readInputFromResource(ITEMS).size(), stockItems.getProducts().size());
         assertEquals(ITEM_EXIST, msg);
     }
 
@@ -71,10 +71,10 @@ class StockItemsTest {
 
         //when
         stockItems.loadStockItems(items);
-        String msg = stockItems.addStockItem('L', 99, TEST_ITEM_FILE);
+        String msg = stockItems.addStockItem('L', new BigDecimal(99), TEST_ITEM_FILE);
 
         //then
-        assertEquals(skuUtil.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());
+        assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());
         assertNull(msg);
 
         msg = stockItems.removeStockItem('L', TEST_ITEM_FILE);

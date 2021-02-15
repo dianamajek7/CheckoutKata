@@ -2,13 +2,15 @@ package wholesale;
 
 import stock.Product;
 
+import java.math.BigDecimal;
+
 public class SpecialPrice {
 
-    private Product product;    //Has-A relationship through composition
-    private int discountPrice;
-    private int noOfItems;
+    private final Product product;    //Has-A relationship through composition
+    private final BigDecimal discountPrice;
+    private final int noOfItems;
 
-    public SpecialPrice(Product product, int noOfItems, int discountPrice) {
+    public SpecialPrice(Product product, int noOfItems, BigDecimal discountPrice) {
         this.product = product;
         this.discountPrice = discountPrice;
         this.noOfItems = noOfItems;
@@ -16,7 +18,7 @@ public class SpecialPrice {
 
     public Product getStockItem() { return product; }
 
-    public int getDiscountPrice() { return discountPrice; }
+    public BigDecimal getDiscountPrice() { return discountPrice; }
 
     public int getNoOfItems() { return noOfItems; }
 }

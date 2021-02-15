@@ -3,6 +3,7 @@ package wholesale;
 import stock.Product;
 import util.Utility;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,8 +13,8 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static util.Constants.*;
-import static util.SkuUtil.deleteALineFromFile;
-import static util.SkuUtil.writeToFile;
+import static util.Utility.deleteALineFromFile;
+import static util.Utility.writeToFile;
 
 public class SpecialOffers {
     private static final Logger LOGGER = Logger.getLogger( SpecialOffers.class.getName() );
@@ -45,10 +46,10 @@ public class SpecialOffers {
             Set<Product> filtered = stockItems.stream().filter(item -> item.getName() == itemName).collect(Collectors.toSet());
 
             if(filtered.size() == 1) {
-                int unitPrice = filtered.stream().findFirst().get().getUnitPrice();
+                BigDecimal unitPrice = filtered.stream().findFirst().get().getUnitPrice();
 
                 int noOfItems = Integer.parseInt(sp.split(" ")[1]);
-                int discountPrice = Integer.parseInt(sp.split(" ")[3]);
+                BigDecimal discountPrice = new BigDecimal(sp.split(" ")[3]);
                 SpecialPrice specialPrice = new SpecialPrice(new Product(itemName, unitPrice), noOfItems, discountPrice);
 
                 this.addSpecialPrice(specialPrice);
@@ -58,7 +59,7 @@ public class SpecialOffers {
 
     }
 
-    public String addSpecialOffer(char itemName, int noOfItems, int discountPrice, Set<Product> stockItems, String fileName) {
+    public String addSpecialOffer(char itemName, int noOfItems, BigDecimal discountPrice, Set<Product> stockItems, String fileName) {
         //filter the list of pricingRules to validate if rule already exists
         List<SpecialPrice> priceRuleFiltered = Utility.filter(this.getSpecialOffers(), e->e.getStockItem().getName() == itemName && e.getNoOfItems() == noOfItems);
 

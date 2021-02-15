@@ -4,6 +4,7 @@ import stock.Product;
 import stock.StockItems;
 import util.Utility;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +17,7 @@ public class Basket {
     private static final Logger LOGGER = Logger.getLogger( Basket.class.getName() );
 
     private final Map<Product, Integer> shoppingBasket;
-    private final Map<Product, Integer> itemsTotal;
+    private final Map<Product, BigDecimal> itemsTotal;
     StockItems stockItems;
 
     public Basket(StockItems stockItems) {
@@ -27,7 +28,7 @@ public class Basket {
 
     public Map<Product, Integer> getShoppingBasket() { return shoppingBasket; }
 
-    public Map<Product, Integer> getItemsTotal() {
+    public Map<Product, BigDecimal> getItemsTotal() {
         loadReceipt();
         return itemsTotal;
     }
@@ -80,12 +81,12 @@ public class Basket {
     }
 
     private void loadReceipt() {
-        int itemTotal;
+        BigDecimal itemTotal;
         for (Map.Entry<Product, Integer> basket : this.shoppingBasket.entrySet()) {
-            int unitPrice = basket.getKey().getUnitPrice();
+            BigDecimal unitPrice = basket.getKey().getUnitPrice();
             int noOfOccurrence = basket.getValue();
 
-            itemTotal = unitPrice * noOfOccurrence; //scanning no of item for a product and returning the total
+            itemTotal = unitPrice.multiply(new BigDecimal(noOfOccurrence)); //scanning no of item for a product and returning the total
             this.itemsTotal.put(basket.getKey(), itemTotal);
         }
 

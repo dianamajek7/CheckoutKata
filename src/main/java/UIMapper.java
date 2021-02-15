@@ -2,13 +2,14 @@ import shopping.Basket;
 import shopping.Checkout;
 import stock.Product;
 import stock.StockItems;
-import util.SkuUtil;
 import util.Utility;
 import wholesale.SpecialOffers;
 import wholesale.SpecialPrice;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import static util.Constants.*;
 public class UIMapper {
     private static final Logger LOGGER = Logger.getLogger( SpecialOffers.class.getName() );
 
-    static SkuUtil skuUtil = new SkuUtil();
+    static Utility utility = new Utility();
 
     public static void shopping(Basket basket, Checkout checkout, SpecialOffers specialOffers){
 
@@ -42,7 +43,7 @@ public class UIMapper {
 
             checkout.calculateTotal(basket.getShoppingBasket());
 
-            float total = checkout.getTotal();
+            BigDecimal total = checkout.getTotal();
 
             System.out.println("\nReceipt.......");
             basket.getItemsTotal().forEach((product, itemTotal) -> {
@@ -160,22 +161,20 @@ public class UIMapper {
 
                     char item = userInput.split(" ")[0].toUpperCase().charAt(0);
                     int nofItems = Integer.parseInt(str_nofItems);
-                    int discountPrice = Integer.parseInt(str_discountPrice);
+                    BigDecimal discountPrice = new BigDecimal(str_discountPrice);
 
-                    if(nofItems  == 0 || discountPrice == 0){
+                    if (nofItems != 0 && !Objects.equals(discountPrice, new BigDecimal(0))) {//adds pricing rule to whole sale list, retrieves an error if occurred during routing
+                        errorMessage = specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICE_FILE);
+                        if (isNull(errorMessage)) {
+                            System.out.println("Success Added, current WholeSale...");
+                            OutputFileContent(SPECIALPRICES); //reloads currentStock
+                            System.out.println(userInput.toUpperCase());
+                        } else {
+                            System.out.println(errorMessage);
+                        }
+                    } else {
                         LOGGER.log(Level.SEVERE, PRICE_ZERO);
                         System.out.println(PRICE_ZERO);
-                        return;
-                    }
-
-                    //adds pricing rule to whole sale list, retrieves an error if occurred during routing
-                    errorMessage = specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICE_FILE);
-                    if(isNull(errorMessage)){
-                        System.out.println("Success Added, current WholeSale...");
-                        OutputFileContent(SPECIALPRICES); //reloads currentStock
-                        System.out.println(userInput.toUpperCase());
-                    }else {
-                        System.out.println(errorMessage);
                     }
 
                 } else {
@@ -239,20 +238,20 @@ public class UIMapper {
                 String errorMessage = UIValidator.isNumeric(strUnitPrice, LOGGER);
                 if(isNull(errorMessage)){
                     char item = userInput.split(" ")[0].toUpperCase().charAt(0);
-                    int unitPrice = Integer.parseInt(strUnitPrice);
+                    BigDecimal unitPrice = new BigDecimal(strUnitPrice);
 
-                    if(unitPrice  == 0){
+                    if (!Objects.equals(unitPrice, new BigDecimal(0))) {
+                        errorMessage = stockItems.addStockItem(item, unitPrice, ITEMS_FILE);    //add Item to the list of existing stocks
+                        if (isNull(errorMessage)) {
+                            System.out.println("Success Added, current Stock...");
+                            OutputFileContent(ITEMS); //reloads currentStock
+                            System.out.println(userInput.toUpperCase());
+                        } else {
+                            System.out.println(errorMessage);
+                        }
+                    } else {
                         LOGGER.log(Level.SEVERE, PRICE_ZERO);
                         System.out.println(PRICE_ZERO);
-                        return;
-                    }
-                    errorMessage = stockItems.addStockItem(item, unitPrice, ITEMS_FILE);    //add Item to the list of existing stocks
-                    if(isNull(errorMessage)){
-                        System.out.println("Success Added, current Stock...");
-                        OutputFileContent(ITEMS); //reloads currentStock
-                        System.out.println(userInput.toUpperCase());
-                    }else {
-                        System.out.println(errorMessage);
                     }
 
 
@@ -293,7 +292,7 @@ public class UIMapper {
     }
 
     private static void OutputFileContent(String fileName){
-        List<String> inputLineList = skuUtil.readInputFromResource(fileName);
+        List<String> inputLineList = utility.readInputFromResource(fileName);
         inputLineList.forEach(System.out::println);  //prints out each line of input
     }
 

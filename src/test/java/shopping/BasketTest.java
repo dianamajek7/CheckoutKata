@@ -16,13 +16,15 @@ class BasketTest {
     Basket basket;
     StockItems stockItems;
     SpecialOffers specialOffers;
+    static Utility utility;
 
     @BeforeEach()
     public void setUp(){
         //given
+        utility = new Utility();
         stockItems = new StockItems();
         specialOffers = new SpecialOffers();
-        Utility.initialise(stockItems, specialOffers);
+        utility.initialise(stockItems, specialOffers);
         basket = new Basket(stockItems);
     }
     @AfterEach

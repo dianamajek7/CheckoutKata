@@ -7,6 +7,8 @@ import stock.StockItems;
 import util.Utility;
 import wholesale.SpecialOffers;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -15,13 +17,15 @@ class CheckoutTest {
     Checkout checkout;
     StockItems stockItems;
     SpecialOffers specialOffers;
+    static Utility utility;
 
     @BeforeEach()
     public void setUp(){
         //given
+        utility = new Utility();
         stockItems = new StockItems();
         specialOffers = new SpecialOffers();
-        Utility.initialise(stockItems, specialOffers);
+        utility.initialise(stockItems, specialOffers);
         basket = new Basket(stockItems);
         checkout = new Checkout(specialOffers);
 
@@ -42,7 +46,7 @@ class CheckoutTest {
         assertNull(msg);
         assertEquals(0, basket.getShoppingBasket().size());
         assertEquals(0, basket.getItemsTotal().size());
-        assertEquals(0, checkout.getTotal());
+        assertEquals(new BigDecimal(0), checkout.getTotal());
     }
 
     @Test
@@ -53,7 +57,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(95, checkout.getTotal());
+        assertEquals(new BigDecimal(95), checkout.getTotal());
         assertEquals(2, basket.getItemsTotal().size());
     }
 
@@ -66,7 +70,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(50f, checkout.getTotal());
+        assertEquals(new BigDecimal(50), checkout.getTotal());
     }
 
     @Test
@@ -77,7 +81,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(15f, checkout.getTotal());
+        assertEquals(new BigDecimal(15), checkout.getTotal());
     }
 
     @Test
@@ -88,7 +92,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(80f, checkout.getTotal());
+        assertEquals(new BigDecimal(80), checkout.getTotal());
     }
 
     @Test
@@ -99,7 +103,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(4, basket.getShoppingBasket().size());
-        assertEquals(115f, checkout.getTotal());
+        assertEquals(new BigDecimal(115), checkout.getTotal());
         assertEquals(4, basket.getItemsTotal().size());
     }
 
@@ -111,7 +115,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(100f, checkout.getTotal());
+        assertEquals(new BigDecimal(100), checkout.getTotal());
     }
 
     @Test
@@ -122,7 +126,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(130f, checkout.getTotal());
+        assertEquals(new BigDecimal(130), checkout.getTotal());
     }
 
     @Test
@@ -133,7 +137,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(180f, checkout.getTotal());
+        assertEquals(new BigDecimal(180), checkout.getTotal());
     }
 
     @Test
@@ -144,7 +148,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(230f, checkout.getTotal());
+        assertEquals(new BigDecimal(230), checkout.getTotal());
         assertEquals(1, basket.getItemsTotal().size());
     }
 
@@ -156,7 +160,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(260f, checkout.getTotal());
+        assertEquals(new BigDecimal(260), checkout.getTotal());
     }
 
     @Test
@@ -167,7 +171,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(1, basket.getShoppingBasket().size());
-        assertEquals(135, checkout.getTotal());
+        assertEquals(new BigDecimal(135), checkout.getTotal());
         assertEquals(1, basket.getItemsTotal().size());
     }
 
@@ -179,7 +183,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(395, checkout.getTotal());
+        assertEquals(new BigDecimal(395), checkout.getTotal());
         assertEquals(2, basket.getItemsTotal().size());
     }
 
@@ -191,7 +195,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(160f, checkout.getTotal());
+        assertEquals(new BigDecimal(160), checkout.getTotal());
     }
 
     @Test
@@ -202,7 +206,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(2, basket.getShoppingBasket().size());
-        assertEquals(175, checkout.getTotal());
+        assertEquals(new BigDecimal(175), checkout.getTotal());
     }
 
     @Test
@@ -213,7 +217,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(3, basket.getShoppingBasket().size());
-        assertEquals(190, checkout.getTotal());
+        assertEquals(new BigDecimal(190), checkout.getTotal());
     }
 
     @Test
@@ -224,7 +228,7 @@ class CheckoutTest {
         //then
         assertNull(msg);
         assertEquals(3, basket.getShoppingBasket().size());
-        assertEquals(190, checkout.getTotal());
+        assertEquals(new BigDecimal(190), checkout.getTotal());
         assertEquals(3, basket.getItemsTotal().size());
     }
 

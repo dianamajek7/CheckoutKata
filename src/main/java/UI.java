@@ -15,9 +15,10 @@ public class UI {
     static SpecialOffers specialOffers =  new SpecialOffers();
     static Basket basket = new Basket(stockItems);
     static Checkout checkout = new Checkout(specialOffers);
+    static Utility utility = new Utility();
 
     public static void main(String[] args) {
-        Utility.initialise(stockItems, specialOffers);
+        utility.initialise(stockItems, specialOffers);
         System.out.println("Welcome");
         System.out.println("Enter 1 to Add item to your basket" );
         System.out.println("Enter 2 to Modify Stocks" );

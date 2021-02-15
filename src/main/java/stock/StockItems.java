@@ -2,6 +2,7 @@ package stock;
 
 import util.Utility;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +11,8 @@ import java.util.logging.Logger;
 
 import static java.util.Objects.isNull;
 import static util.Constants.*;
-import static util.SkuUtil.deleteALineFromFile;
-import static util.SkuUtil.writeToFile;
+import static util.Utility.deleteALineFromFile;
+import static util.Utility.writeToFile;
 
 public class StockItems {
     private static final Logger LOGGER = Logger.getLogger( StockItems.class.getName() );
@@ -38,14 +39,14 @@ public class StockItems {
         //loads the existing inventory from file
         items.forEach(item -> {
             String itemName = item.split(" ")[0];   //each line in the file contains a space between the item and the unitPrice
-            int unitPrice = Integer.parseInt(item.split(" ")[1]);
+            BigDecimal unitPrice = new BigDecimal(item.split(" ")[1]);
             Product product = new Product(itemName.charAt(0), unitPrice);
 
             this.addProduct(product);
         });
     }
 
-    public String addStockItem(char itemName, int unitPrice, String writeFile) {
+    public String addStockItem(char itemName, BigDecimal unitPrice, String writeFile) {
 
         //filter the list of stocks to validate if item already exists
         List<Product> productsFiltered = Utility.filter(this.getProducts(), e->e.getName() == itemName);
