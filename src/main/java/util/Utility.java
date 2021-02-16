@@ -15,14 +15,15 @@ import static util.Constants.*;
 public class Utility {
     private static final Logger LOGGER = Logger.getLogger( Utility.class.getName() );
 
-    public void initialise(StockItems stockItems, SpecialOffers specialOffers) {
+    public void initialise(StockItems stockItems, SpecialOffers specialOffers) throws ExceptionHandling {
         List<String> items = readInputFromResource(ITEMS);
-        List<String>specialPrices = readInputFromResource(SPECIALPRICES);
+        List<String> specialPrices = readInputFromResource(SPECIALPRICES);
+
         stockItems.loadStockItems(items);
         specialOffers.loadSpecialOffers(specialPrices, stockItems.getProducts());
     }
 
-    public List<String> readInputFromResource(String fileName) {
+    public List<String> readInputFromResource(String fileName) throws ExceptionHandling {
         List<String> inputList = new ArrayList<>();
         BufferedReader reader;
         try {
@@ -38,12 +39,13 @@ public class Utility {
             LOGGER.log(Level.FINE, FILEOPERAATION_SUCCESSFUL);
         } catch(Exception e) {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
+            throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
 
         return inputList;
     }
 
-    public static void writeToFile(String fileName, String inputLine) {
+    public static void writeToFile(String fileName, String inputLine) throws ExceptionHandling {
         try {
             if(!inputLine.isEmpty()) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
@@ -55,12 +57,12 @@ public class Utility {
 
         }catch(Exception e) {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
+            throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
 
     }
 
-    public static void deleteALineFromFile (String fileName, String inputLine)
-    {
+    public static void deleteALineFromFile (String fileName, String inputLine) throws ExceptionHandling {
         try {
             File oldFile = new File(fileName);
 
@@ -90,6 +92,7 @@ public class Utility {
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
+            throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
 
     }

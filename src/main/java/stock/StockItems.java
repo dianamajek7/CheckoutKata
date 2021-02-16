@@ -1,5 +1,7 @@
 package stock;
 
+import util.ExceptionHandling;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
@@ -23,56 +25,57 @@ public class StockItems {
 
     public Set<Product> getProducts() { return products; }
 
-    public void addProduct(Product product) {
+    public void addProduct(Product product)  {
 
         if(isNull(product)){
             String msg = NULLFOUND;
-            LOGGER.log(Level.WARNING, msg);
+            LOGGER.log(Level.SEVERE, msg);
             return;
         }
 
         this.products.add(product);
     }
 
-    public void loadStockItems(List<String> items) {
+    public void loadStockItems(List<String> items) {  //internal use
         //loads the existing inventory from file
+        if (isNull(items)) {
+            LOGGER.log(Level.WARNING, EMPTY_STOCK);
+            return;
+        }
         items.forEach(item -> {
             String itemName = item.split(" ")[0];   //each line in the file contains a space between the item and the unitPrice
             BigDecimal unitPrice = new BigDecimal(item.split(" ")[1]);
             Product product = new Product(itemName.charAt(0), unitPrice);
-
             this.addProduct(product);
         });
     }
 
-    public String addStockItem(char itemName, BigDecimal unitPrice, String writeFile) {
+    public void addStockItem(char itemName, BigDecimal unitPrice, String writeFile) throws ExceptionHandling {
 
         //filter the list of stocks to validate if item already exists
         List<Product> productsFiltered = this.getProducts().stream().filter( e->e.getName() == itemName).collect(Collectors.toList());
-        String msg = null;
 
         if(productsFiltered.size() > 0) {
-            msg = ITEM_EXIST;
-            LOGGER.log(Level.SEVERE, msg);
+            String msg = ITEM_EXIST;
+            LOGGER.log(Level.SEVERE, "Caught Exception: " + msg);
+            throw new ExceptionHandling(msg);
         } else {
             Product product = new Product(itemName, unitPrice);
             this.addProduct(product);
             String newOffer = itemName + " " +  unitPrice; //to keep file updated
             writeToFile(writeFile, newOffer);
         }
-
-        return msg;
     }
 
 
-    public String removeStockItem(char item, String fileName) {
+    public void removeStockItem(char item, String fileName) throws ExceptionHandling {
         //if a duplicate was found then the pricing rile to delete exist
-        String msg = null;
         List<Product> productsFiltered = this.getProducts().stream().filter( e->e.getName() == item).collect(Collectors.toList());
 
         if(productsFiltered.size() == 0) {
-            msg = ITEM_NOTFOND;
-            LOGGER.log(Level.SEVERE, msg);
+            String msg = ITEM_NOTFOND;
+            LOGGER.log(Level.SEVERE, "Caught Exception: " + msg);
+            throw new ExceptionHandling(msg);
         } else if (productsFiltered.size() == 1) {
 
             this.products.removeIf(e -> e.getName() == item);
@@ -81,6 +84,5 @@ public class StockItems {
             deleteALineFromFile(fileName, line);    //removes the last line from file that matches the itemName
 
         }
-        return msg;
     }
 }

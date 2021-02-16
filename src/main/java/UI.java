@@ -1,16 +1,15 @@
 import shopping.Basket;
 import shopping.Checkout;
 import stock.StockItems;
+import util.ExceptionHandling;
 import util.Utility;
 import wholesale.SpecialOffers;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import static java.util.Objects.isNull;
-
 public class UI {
-    private static final Logger LOGGER = Logger.getLogger( SpecialOffers.class.getName() );
+    private static final Logger LOGGER = Logger.getLogger( UI.class.getName() );
     static StockItems stockItems = new StockItems();
     static SpecialOffers specialOffers =  new SpecialOffers();
     static Basket basket = new Basket(stockItems);
@@ -18,22 +17,23 @@ public class UI {
     static Utility utility = new Utility();
 
     public static void main(String[] args) {
-        utility.initialise(stockItems, specialOffers);
-        System.out.println("Welcome");
-        System.out.println("Enter 1 to Add item to your basket" );
-        System.out.println("Enter 2 to Modify Stocks" );
-        System.out.println("Enter 3 to Modify SpecialPrice\n" );
 
+        try{
+            utility.initialise(stockItems, specialOffers);
+            System.out.println("Welcome");
+            System.out.println("Enter 1 to Add item to your basket" );
+            System.out.println("Enter 2 to Modify Stocks" );
+            System.out.println("Enter 3 to Modify SpecialPrice\n" );
 
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
+            Scanner scanner = new Scanner(System.in);
+            String userInput = scanner.nextLine();
 
-        String errorMessage = UIValidator.isNumeric(userInput, LOGGER);
-        if(isNull(errorMessage)) {
+            UIValidator.validateIsNumeric(userInput);
             menu(Integer.parseInt(userInput));  //loads each UI path, plays a role of a route
-        }else{
-            System.out.println(errorMessage);
+        } catch (ExceptionHandling e) {
+            System.out.println(e.getMessage());
         }
+
     }
 
     private static void menu(int option) {

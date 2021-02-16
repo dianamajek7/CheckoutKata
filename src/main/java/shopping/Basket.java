@@ -2,6 +2,7 @@ package shopping;
 
 import stock.Product;
 import stock.StockItems;
+import util.ExceptionHandling;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -33,12 +34,11 @@ public class Basket {
         return itemsTotal;
     }
 
-    public String addItemToBasket(String inputItems) {
-        String msg = null;
+    public void addItemToBasket(String inputItems) throws ExceptionHandling {
         if (isNull(inputItems)) {
-            msg = NULLFOUND;
-            LOGGER.log(Level.SEVERE, msg);
-            return msg;
+            String msg = NULLFOUND;
+            LOGGER.log(Level.SEVERE, "Caught Exception: " + msg);
+            throw new ExceptionHandling(msg);
         }
 
         Map<Character, Integer> items = extractItems(inputItems.toUpperCase());   //extract the product and total no of occurrence
@@ -53,12 +53,12 @@ public class Basket {
                 this.shoppingBasket.put(product, noOfOccurrence);
 
             } else if (productsFiltered.size() == 0) {
-                msg = ITEM_NOTFOND + ": "+ key;
-                LOGGER.log(Level.SEVERE, msg);
+                String msg = ITEM_NOTFOND + ": "+ key;
+                LOGGER.log(Level.SEVERE, "Caught Exception: " + msg);
+                throw new ExceptionHandling(msg);
+
             }
         }
-
-        return msg;
     }
 
     private Map<Character, Integer> extractItems(String inputItems) {
