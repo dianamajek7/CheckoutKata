@@ -29,7 +29,7 @@ public class Basket {
     public Map<Product, Integer> getShoppingBasket() { return shoppingBasket; }
 
     public Map<Product, BigDecimal> getItemsTotal() {
-        loadReceipt();
+        this.loadReceipt();
         return itemsTotal;
     }
 
