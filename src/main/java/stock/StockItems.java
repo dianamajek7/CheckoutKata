@@ -1,13 +1,12 @@
 package stock;
 
-import util.Utility;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static util.Constants.*;
@@ -49,7 +48,7 @@ public class StockItems {
     public String addStockItem(char itemName, BigDecimal unitPrice, String writeFile) {
 
         //filter the list of stocks to validate if item already exists
-        List<Product> productsFiltered = Utility.filter(this.getProducts(), e->e.getName() == itemName);
+        List<Product> productsFiltered = this.getProducts().stream().filter( e->e.getName() == itemName).collect(Collectors.toList());
         String msg = null;
 
         if(productsFiltered.size() > 0) {
@@ -69,7 +68,7 @@ public class StockItems {
     public String removeStockItem(char item, String fileName) {
         //if a duplicate was found then the pricing rile to delete exist
         String msg = null;
-        List<Product> productsFiltered = Utility.filter(this.getProducts(), e->e.getName() == item);
+        List<Product> productsFiltered = this.getProducts().stream().filter( e->e.getName() == item).collect(Collectors.toList());
 
         if(productsFiltered.size() == 0) {
             msg = ITEM_NOTFOND;
@@ -78,10 +77,8 @@ public class StockItems {
 
             this.products.removeIf(e -> e.getName() == item);
 
-            if(productsFiltered.size() == 1){
-                String line = item + " " + productsFiltered.stream().findFirst().get().getUnitPrice();
-                deleteALineFromFile(fileName, line);    //removes the last line from file that matches the itemName
-            }
+            String line = item + " " + productsFiltered.stream().findFirst().get().getUnitPrice();
+            deleteALineFromFile(fileName, line);    //removes the last line from file that matches the itemName
 
         }
         return msg;

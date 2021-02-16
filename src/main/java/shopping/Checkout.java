@@ -1,13 +1,13 @@
 package shopping;
 
 import stock.Product;
-import util.Utility;
 import wholesale.SpecialOffers;
 import wholesale.SpecialPrice;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Checkout {
 
@@ -35,7 +35,7 @@ public class Checkout {
             itemTotal = unitPrice.multiply(new BigDecimal(noOfOccurrence));
 
             //filters the list of whole sale items to find the matching itemName
-            List<SpecialPrice> filteredPriceRule = Utility.filter(specialOffers.getSpecialOffers(), e-> e.getStockItem().getName() == itemName && noOfOccurrence >= e.getNoOfItems());
+            List<SpecialPrice> filteredPriceRule = specialOffers.getSpecialOffers().stream().filter(e -> e.getStockItem().getName() == itemName && noOfOccurrence >= e.getNoOfItems()).collect(Collectors.toList());
             itemTotal = applySpecialPrice(filteredPriceRule, itemTotal, noOfOccurrence, unitPrice);
 
 

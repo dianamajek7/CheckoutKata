@@ -60,7 +60,7 @@ public class UIMapper {
                     System.out.print("Unit Price: "+ product.getUnitPrice() + " | ");
                     System.out.println("Accumulated : "+ itemTotal);
                     //a check for if discount was applied
-                    List<SpecialPrice> sp = Utility.filter(specialOffers.getSpecialOffers(), e->e.getStockItem().getName() == product.getName() && noOfItemOccurrence >= e.getNoOfItems());
+                    List<SpecialPrice> sp = specialOffers.getSpecialOffers().stream().filter(e->e.getStockItem().getName() == product.getName() && noOfItemOccurrence >= e.getNoOfItems()).collect(Collectors.toList());
                     if(sp.size() == 1)
                         System.out.println("Discount Applied");
                 }
@@ -283,7 +283,6 @@ public class UIMapper {
             }else {
                 System.out.println(errorMessage);
             }
-
 
         }else{
             LOGGER.log(Level.SEVERE, NULLFOUND);

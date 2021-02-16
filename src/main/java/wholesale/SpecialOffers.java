@@ -1,7 +1,6 @@
 package wholesale;
 
 import stock.Product;
-import util.Utility;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class SpecialOffers {
 
     public String addSpecialOffer(char itemName, int noOfItems, BigDecimal discountPrice, Set<Product> stockItems, String fileName) {
         //filter the list of pricingRules to validate if rule already exists
-        List<SpecialPrice> priceRuleFiltered = Utility.filter(this.getSpecialOffers(), e->e.getStockItem().getName() == itemName && e.getNoOfItems() == noOfItems);
+        List<SpecialPrice> priceRuleFiltered = this.getSpecialOffers().stream().filter(e->e.getStockItem().getName() == itemName && e.getNoOfItems() == noOfItems).collect(Collectors.toList());
 
         String msg = null;
         if(priceRuleFiltered.size() > 0) {
@@ -87,7 +86,7 @@ public class SpecialOffers {
     public String removeSpecialOffer(char item, int noOfItems, String fileName) {
         //if a duplicate was found then the pricingRule to delete exist
         String msg = null;
-        List<SpecialPrice> priceRuleFiltered = Utility.filter(this.getSpecialOffers(), e->e.getStockItem().getName() == item && e.getNoOfItems() == noOfItems);
+        List<SpecialPrice> priceRuleFiltered = this.getSpecialOffers().stream().filter(e->e.getStockItem().getName() == item && e.getNoOfItems() == noOfItems).collect(Collectors.toList());
 
         if(priceRuleFiltered.size() == 0) {
             msg = PRICINGRULE_NOTPRESENT;

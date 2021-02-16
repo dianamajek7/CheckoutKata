@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,25 +14,6 @@ import static util.Constants.*;
 
 public class Utility {
     private static final Logger LOGGER = Logger.getLogger( Utility.class.getName() );
-    public static <T> List<T> filter(Set<T> list, Predicate<T> test){
-        List<T> filtered = new ArrayList<>();
-        for(T t : list) {
-            if(test.test(t)) {
-                filtered.add(t);
-            }
-        }
-        return filtered;
-    }
-
-    public static <T> List<T> filter(List<T> list, Predicate<T> test){  //an overloading method taking a different parameter type but returns same value
-        List<T> filtered = new ArrayList<>();
-        for(T t : list) {
-            if(test.test(t)) {
-                filtered.add(t);
-            }
-        }
-        return filtered;
-    }
 
     public void initialise(StockItems stockItems, SpecialOffers specialOffers) {
         List<String> items = readInputFromResource(ITEMS);

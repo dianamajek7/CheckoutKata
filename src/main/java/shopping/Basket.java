@@ -2,12 +2,12 @@ package shopping;
 
 import stock.Product;
 import stock.StockItems;
-import util.Utility;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static util.Constants.ITEM_NOTFOND;
@@ -47,7 +47,7 @@ public class Basket {
             Integer noOfOccurrence = entry.getValue();
 
             //gets the product from the list of available stocks
-            List<Product> productsFiltered = Utility.filter(stockItems.getProducts(), e->e.getName() == key);
+            List<Product> productsFiltered = stockItems.getProducts().stream().filter(e->e.getName() == key).collect(Collectors.toList());
             if(productsFiltered.size() == 1) {
                 Product product = productsFiltered.stream().findFirst().get();
                 this.shoppingBasket.put(product, noOfOccurrence);
