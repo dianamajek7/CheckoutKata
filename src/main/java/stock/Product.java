@@ -15,7 +15,6 @@ public class Product {
     public char getName() { return name; }
     public BigDecimal getUnitPrice() { return unitPrice; }
 
-
     //using getters, and never field references for equals() and hashCode()
         // if using field reference it is very much likely that the id field is lazy loaded
         //meaning one might be zero or null, resulting in incorrect behavior.
@@ -34,15 +33,4 @@ public class Product {
     public int hashCode() {
         return Objects.hash(this.getName(), this.getUnitPrice());   //returns exactly the same hashing as IntelliJ default hashCode
     }
-
-//    @Override
-//    public int hashCode() {
-//        final int prime = 31;
-//        int result = 1;
-//
-//        result = prime * result + this.getName();
-//        result = 31 * result + (isNull(this.getUnitPrice()) ? 0 : this.getUnitPrice().hashCode());
-//        System.out.println("Res "+result);
-//        return result;
-//    }
 }
