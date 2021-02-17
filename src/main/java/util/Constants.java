@@ -24,5 +24,8 @@ public final class Constants {
     public static String ONLY_LETTERS_AND_NUMBERS_ALLOWED = "Only Letters and Numbers allowed";
     public static String INTERNAL_SERVER_ERROR = "An Internal Server Error Occurred";
     public static String NONE_AVAILABLE = "None available";
+    public static String REGEX_ONLY_LETTERS = "^[A-Za-z]*$";
+    public static String REGEX_ONLY_LETTERS_AND_NUMBERS = "[A-z].[0-9]+.*$";
+    public static String FILE_DOES_NOT_EXISTS = "File does not Exist";
 
 }

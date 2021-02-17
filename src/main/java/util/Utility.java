@@ -4,12 +4,15 @@ import stock.StockItems;
 import wholesale.SpecialOffers;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.util.Objects.isNull;
 import static util.Constants.*;
 
 public class Utility {
@@ -46,6 +49,11 @@ public class Utility {
     }
 
     public static void writeToFile(String fileName, String inputLine) throws ExceptionHandling {
+
+        if(isNull(fileName) || !Files.exists(Paths.get(fileName))) {
+            LOGGER.log(Level.SEVERE, "Caught Exception: " + FILE_DOES_NOT_EXISTS + " " + fileName );
+            throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
+        }
         try {
             if(!inputLine.isEmpty()) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
@@ -63,6 +71,12 @@ public class Utility {
     }
 
     public static void deleteALineFromFile (String fileName, String inputLine) throws ExceptionHandling {
+
+        if(isNull(fileName) || !Files.exists(Paths.get(fileName))) {
+            LOGGER.log(Level.SEVERE, "Caught Exception: " + FILE_DOES_NOT_EXISTS + " " + fileName );
+            throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
+        }
+
         try {
             File oldFile = new File(fileName);
 

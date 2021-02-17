@@ -35,7 +35,7 @@ public class UIMapper {
                 String userInput = scanner.nextLine();
 
                 UIValidator.validateIsEmpty(userInput);
-                UIValidator.validateInputFormat(userInput, "[^a-z0-9 ]", ONLY_LETTERS_ALLOWED);
+                UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS, ONLY_LETTERS_ALLOWED);
 
                 basket.addItemToBasket(userInput);
                 checkout.calculateTotal(basket.getShoppingBasket());
@@ -151,7 +151,7 @@ public class UIMapper {
 
         try{
             UIValidator.validateIsEmpty(userInput);
-            UIValidator.validateInputFormat(userInput, "^(?=.*[a-zA-Z])(?=.*[0-9])", ONLY_LETTERS_AND_NUMBERS_ALLOWED);
+            UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 2){
                 String strUnitPrice = userInput.split(" ")[1];
                 UIValidator.validateIsNumeric(strUnitPrice);
@@ -191,7 +191,7 @@ public class UIMapper {
 
         try{
             UIValidator.validateIsEmpty(userInput);
-            UIValidator.validateInputFormat(userInput, "^(?=.*[a-zA-Z])(?=.*[0-9])", ONLY_LETTERS_AND_NUMBERS_ALLOWED);
+            UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 3) {
                 String str_nofItems = userInput.split(" ")[1];
                 String str_discountPrice = userInput.split(" ")[2];
@@ -225,7 +225,7 @@ public class UIMapper {
     private static void removeItemFromWholeSale(String userInput, SpecialOffers specialOffers) {
         try{
             UIValidator.validateIsEmpty(userInput);
-            UIValidator.validateInputFormat(userInput, "^(?=.*[a-zA-Z])(?=.*[0-9])", ONLY_LETTERS_AND_NUMBERS_ALLOWED);
+            UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 2) {
                 char item = userInput.toUpperCase().charAt(0);
                 String str_noOfItems = userInput.split(" ")[1];
