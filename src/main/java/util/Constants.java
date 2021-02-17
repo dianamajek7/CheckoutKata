@@ -16,7 +16,6 @@ public final class Constants {
     public static String ITEM_NOTFOND = "Item Specified not Found";
     public static String ITEM_EXIST = "Item Specified Already Exist";
     public static String NUMERIC_ERROR = "Must be an integer";
-    public static String PRICE_NOTUMBERIC = "Price must be numeric";
     public static String PRICE_ZERO = "Value must be greater than 0";
     public static String EMPTY_STOCK = "Empty Stock";
     public static String EMPTY_SALES = "Empty Sales";

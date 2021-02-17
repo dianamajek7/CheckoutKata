@@ -19,7 +19,7 @@ public class Basket {
 
     private final Map<Product, Integer> shoppingBasket;
     private final Map<Product, BigDecimal> itemsTotal;
-    StockItems stockItems;
+    private final StockItems stockItems;
 
     public Basket(StockItems stockItems) {
         this.stockItems = stockItems;
@@ -41,7 +41,7 @@ public class Basket {
             throw new ExceptionHandling(msg);
         }
 
-        Map<Character, Integer> items = extractItems(inputItems.toUpperCase());   //extract the product and total no of occurrence
+        Map<Character, Integer> items = extractItemsAndOccurrence(inputItems.toUpperCase());   //extract the product and total no of occurrence
         for(Map.Entry<Character, Integer> entry : items.entrySet()) {
             Character key = entry.getKey();
             Integer noOfOccurrence = entry.getValue();
@@ -61,7 +61,7 @@ public class Basket {
         }
     }
 
-    private Map<Character, Integer> extractItems(String inputItems) {
+    private Map<Character, Integer> extractItemsAndOccurrence(String inputItems) {
         char[] inputArray = inputItems.toCharArray();
         List<Character> itemList = new ArrayList<>();
         Map<Character, Integer> items = new HashMap<>();

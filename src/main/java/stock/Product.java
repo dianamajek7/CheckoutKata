@@ -1,6 +1,7 @@
 package stock;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
     private final char name;
@@ -14,4 +15,34 @@ public class Product {
     public char getName() { return name; }
     public BigDecimal getUnitPrice() { return unitPrice; }
 
+
+    //using getters, and never field references for equals() and hashCode()
+        // if using field reference it is very much likely that the id field is lazy loaded
+        //meaning one might be zero or null, resulting in incorrect behavior.
+    @Override
+    public boolean equals(Object o) {
+        if(o == null) return false;
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+
+        Product product = (Product) o;
+        return this.getName() == product.getName() &&
+                this.getUnitPrice().equals(product.getUnitPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName(), this.getUnitPrice());   //returns exactly the same hashing as IntelliJ default hashCode
+    }
+
+//    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//
+//        result = prime * result + this.getName();
+//        result = 31 * result + (isNull(this.getUnitPrice()) ? 0 : this.getUnitPrice().hashCode());
+//        System.out.println("Res "+result);
+//        return result;
+//    }
 }

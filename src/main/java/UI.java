@@ -6,15 +6,13 @@ import util.Utility;
 import wholesale.SpecialOffers;
 
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class UI {
-    private static final Logger LOGGER = Logger.getLogger( UI.class.getName() );
-    static StockItems stockItems = new StockItems();
-    static SpecialOffers specialOffers =  new SpecialOffers();
-    static Basket basket = new Basket(stockItems);
-    static Checkout checkout = new Checkout(specialOffers);
-    static Utility utility = new Utility();
+    private static final StockItems stockItems = new StockItems();
+    private static final SpecialOffers specialOffers =  new SpecialOffers();
+    private static final Basket basket = new Basket(stockItems);
+    private static final Checkout checkout = new Checkout(specialOffers);
+    private static final Utility utility = new Utility();
 
     public static void main(String[] args) {
 

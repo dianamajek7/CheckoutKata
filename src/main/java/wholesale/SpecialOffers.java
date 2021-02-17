@@ -30,8 +30,7 @@ public class SpecialOffers {
 
     public void addSpecialPrice(SpecialPrice specialPrice) {
         if(isNull(specialPrice)){
-            String msg = NULLFOUND;
-            LOGGER.log(Level.SEVERE, msg);
+            LOGGER.log(Level.SEVERE, NULLFOUND);
             return;
         }
         this.specialOffers.add(specialPrice);

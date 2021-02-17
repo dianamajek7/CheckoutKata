@@ -28,8 +28,7 @@ public class StockItems {
     public void addProduct(Product product)  {
 
         if(isNull(product)){
-            String msg = NULLFOUND;
-            LOGGER.log(Level.SEVERE, msg);
+            LOGGER.log(Level.SEVERE, NULLFOUND);
             return;
         }
 
