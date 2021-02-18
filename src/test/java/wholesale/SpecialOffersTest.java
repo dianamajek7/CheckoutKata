@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static util.Constants.*;
 
 class SpecialOffersTest {
@@ -92,7 +93,7 @@ class SpecialOffersTest {
 
     @Test
     public void validateWholeSale_addSpecialPrice_With_An_ExistingPricingRule() throws ExceptionHandling {
-        try {
+        Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //given
             items = utility.readInputFromResource(ITEMS);
             specialPricing = utility.readInputFromResource(SPECIALPRICES);
@@ -100,16 +101,16 @@ class SpecialOffersTest {
 
             //when
             specialOffers.addSpecialOffer('B', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
-        } catch (ExceptionHandling e) {
-            //then
-            assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
-            assertEquals(PRICINGRULE_EXIST, e.getMessage());
-        }
+        });
+        //then
+        assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
+        assertEquals(PRICINGRULE_EXIST, exception.getMessage());
     }
 
     @Test
     public void validateWholeSale_addSpecialPrice_With_A_NonExisting_Item() throws ExceptionHandling {
-        try {
+
+        Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //given
             items = utility.readInputFromResource(ITEMS);
             specialPricing = utility.readInputFromResource(SPECIALPRICES);
@@ -117,11 +118,10 @@ class SpecialOffersTest {
 
             //when
             specialOffers.addSpecialOffer('F', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
-        } catch (ExceptionHandling e) {
-            //then
-            assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
-            assertEquals(ITEM_NOTFOND + ": F", e.getMessage());
-        }
+        });
+        //then
+        assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
+        assertEquals(ITEM_NOTFOND + ": F", exception.getMessage());
     }
 
     @Test
@@ -143,7 +143,8 @@ class SpecialOffersTest {
 
     @Test
     public void validateInventory_removeNonExisting_PricingRule() {
-        try {
+
+        Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //given
             items = utility.readInputFromResource(ITEMS);
             specialPricing = utility.readInputFromResource(SPECIALPRICES);
@@ -151,13 +152,11 @@ class SpecialOffersTest {
 
             //when
             specialOffers.removeSpecialOffer('Z', 3, TEST_SPECIALPRICE_FILE);
-        } catch (ExceptionHandling e) {
-            int oldSize = specialOffers.getSpecialOffers().size();
-            //then
-            assertEquals(PRICINGRULE_NOTPRESENT, e.getMessage());
-            assertEquals(oldSize, specialOffers.getSpecialOffers().size());
-        }
-
+        });
+        int oldSize = specialOffers.getSpecialOffers().size();
+        //then
+        assertEquals(PRICINGRULE_NOTPRESENT, exception.getMessage());
+        assertEquals(oldSize, specialOffers.getSpecialOffers().size());
 
     }
 

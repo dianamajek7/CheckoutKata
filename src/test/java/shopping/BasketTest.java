@@ -9,6 +9,7 @@ import util.Utility;
 import wholesale.SpecialOffers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static util.Constants.ITEM_NOTFOND;
 import static util.Constants.NULLFOUND;
 
@@ -46,29 +47,29 @@ class BasketTest {
     @Test
     public void validate_nullItemInBasket(){
 
-        try {
-            //when
-            basket.addItemToBasket(null);
-        } catch (ExceptionHandling e) {
-            //then
-            assertEquals(NULLFOUND, e.getMessage());
-            assertEquals(0, basket.getShoppingBasket().size());
-            assertEquals(0, basket.getItemsTotal().size());
-        }
+        Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
+                basket.addItemToBasket(null)
+        );
+        //then
+        assertEquals(NULLFOUND, exception.getMessage());
+        assertEquals(0, basket.getShoppingBasket().size());
+        assertEquals(0, basket.getItemsTotal().size());
 
     }
 
     @Test
     public void validate_UnknownItemInBasket(){
-        try {
-            //when
-            basket.addItemToBasket("AABCCCZZZZZ");
-        } catch (ExceptionHandling e) {
-            //then
-            assertEquals(ITEM_NOTFOND + ": Z", e.getMessage());
-            assertEquals(3, basket.getShoppingBasket().size());
-            assertEquals(3, basket.getItemsTotal().size());
-        }
+
+        Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
+                basket.addItemToBasket("AABCCCZZZZZ")
+        );
+
+        //then
+        assertEquals(ITEM_NOTFOND + ": Z", exception.getMessage());
+        assertEquals(3, basket.getShoppingBasket().size());
+        assertEquals(3, basket.getItemsTotal().size());
 
     }
 

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static util.Constants.*;
 
 class StockItemsTest {
@@ -71,15 +72,15 @@ class StockItemsTest {
 
     @Test
     public void validateInventory_addItem_ThatExists() throws ExceptionHandling {
-        try {
+
+        Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //when
             stockItems.loadStockItems(items);
             stockItems.addStockItem('B', new BigDecimal(30), TEST_ITEM_FILE);
-        } catch (ExceptionHandling e) {
-            //then
-            assertEquals(utility.readInputFromResource(ITEMS).size(), stockItems.getProducts().size());
-            assertEquals(ITEM_EXIST, e.getMessage());
-        }
+        });
+        //then
+        assertEquals(utility.readInputFromResource(ITEMS).size(), stockItems.getProducts().size());
+        assertEquals(ITEM_EXIST, exception.getMessage());
 
     }
 
@@ -95,20 +96,18 @@ class StockItemsTest {
         assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());
         stockItems.removeStockItem('L', TEST_ITEM_FILE);
         assertEquals(items.size(), stockItems.getProducts().size());    //the size stays the same
-
     }
 
     @Test
     public void validateInventory_Remove_ANonExisting_Item() {
-        try {
+        Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //when
             stockItems.loadStockItems(items);
             stockItems.removeStockItem('L', TEST_ITEM_FILE);
-        } catch (ExceptionHandling e) {
-            //then
-            assertEquals(ITEM_NOTFOND, e.getMessage());
-            assertEquals(items.size(), stockItems.getProducts().size());    //the size stays the same
-        }
+        });
+        //then
+        assertEquals(ITEM_NOTFOND, exception.getMessage());
+        assertEquals(items.size(), stockItems.getProducts().size());    //the size stays the same
     }
 
 }

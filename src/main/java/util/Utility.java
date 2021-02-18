@@ -50,7 +50,7 @@ public class Utility {
 
     public static void writeToFile(String fileName, String inputLine) throws ExceptionHandling {
 
-        if(isNull(fileName) || !Files.exists(Paths.get(fileName))) {
+        if(isNull(fileName) || isNull(inputLine) || !Files.exists(Paths.get(fileName))) {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + FILE_DOES_NOT_EXISTS + " " + fileName );
             throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
@@ -67,19 +67,17 @@ public class Utility {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
             throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
-
     }
 
     public static void deleteALineFromFile (String fileName, String inputLine) throws ExceptionHandling {
 
-        if(isNull(fileName) || !Files.exists(Paths.get(fileName))) {
+        if(isNull(fileName) || isNull(inputLine)) {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + FILE_DOES_NOT_EXISTS + " " + fileName );
             throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
 
         try {
             File oldFile = new File(fileName);
-
             //create temp File under current directory,
             String tempFileName = fileName.split("resources/")[0] + "resources/" + fileName.split("resources/")[1] + "_";
             File tempFile = new File(tempFileName);
@@ -108,6 +106,5 @@ public class Utility {
             LOGGER.log(Level.SEVERE, "Caught Exception: " + e.getMessage());
             throw new ExceptionHandling(INTERNAL_SERVER_ERROR);
         }
-
     }
 }
