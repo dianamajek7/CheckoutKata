@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static util.Constants.*;
 
 class StockItemsTest {
-    StockItems stockItems;
-    List<String> items;
-    static Utility utility;
+    private StockItems stockItems;
+    private List<String> items;
+    private static Utility utility;
 
     @BeforeEach()
     public void setUp() throws ExceptionHandling {

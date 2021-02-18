@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static util.Constants.*;
 
 class SpecialOffersTest {
-    StockItems stockItems;
-    SpecialOffers specialOffers;
-    List<String> items;
-    List<String> specialPricing;
-    static Utility utility;
+    private StockItems stockItems;
+    private SpecialOffers specialOffers;
+    private List<String> items;
+    private List<String> specialPricing;
+    private static Utility utility;
 
     @BeforeEach()
     public void setUp() {

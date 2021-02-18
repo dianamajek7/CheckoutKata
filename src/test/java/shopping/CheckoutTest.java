@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CheckoutTest {
-    Basket basket;
-    Checkout checkout;
-    StockItems stockItems;
-    SpecialOffers specialOffers;
-    static Utility utility;
+    private Basket basket;
+    private Checkout checkout;
+    private StockItems stockItems;
+    private SpecialOffers specialOffers;
+    private static Utility utility;
 
     @BeforeEach()
     public void setUp() throws ExceptionHandling {

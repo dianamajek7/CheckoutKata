@@ -20,8 +20,8 @@ public final class Constants {
     public static String EMPTY_STOCK = "Empty Stock";
     public static String EMPTY_SALES = "Empty Sales";
     public static String ALLDETAILS_REQUIRED = "Invalid Format, Must enter all required Fields";
-    public static String ONLY_LETTERS_ALLOWED = "Only Letters allowed";
-    public static String ONLY_LETTERS_AND_NUMBERS_ALLOWED = "Only Letters and Numbers allowed";
+    public static String ONLY_LETTERS_ALLOWED = "Only Letters allowed with no Spacing";
+    public static String ONLY_LETTERS_AND_NUMBERS_ALLOWED = "Only Letters and Numbers allowed including spacing";
     public static String INTERNAL_SERVER_ERROR = "An Internal Server Error Occurred";
     public static String NONE_AVAILABLE = "None available";
     public static String REGEX_ONLY_LETTERS = "^[A-Za-z]*$";

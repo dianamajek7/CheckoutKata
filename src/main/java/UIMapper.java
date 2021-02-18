@@ -29,42 +29,43 @@ public class UIMapper {
         try {
             System.out.println("\nBelow are the list of available Items...");
 
-            if(OutputFileContent(ITEMS)) {
-                System.out.println("\nAdd items to your basket i.e- AAAB: " );
-                Scanner scanner = new Scanner(System.in);
-                String userInput = scanner.nextLine();
+            OutputFileContent(ITEMS);
+            System.out.println("\nAdd items to your basket i.e- AAAB: " );
+            Scanner scanner = new Scanner(System.in);
+            String userInput = scanner.nextLine();
+            scanner.close();
+            UIValidator.validateIsEmpty(userInput);
+            UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS, ONLY_LETTERS_ALLOWED);
 
-                UIValidator.validateIsEmpty(userInput);
-                UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS, ONLY_LETTERS_ALLOWED);
+            basket.addItemToBasket(userInput);
+            checkout.calculateTotal(basket.getShoppingBasket());
+            BigDecimal total = checkout.getTotal();
 
-                basket.addItemToBasket(userInput);
-                checkout.calculateTotal(basket.getShoppingBasket());
-                BigDecimal total = checkout.getTotal();
+            System.out.println("\nReceipt.......");
+            //prints out the each product price, sale and accumulated total based on no of occurrence
+            basket.getItemsTotal().forEach((product, itemTotal) -> {
 
-                System.out.println("\nReceipt.......");
-                basket.getItemsTotal().forEach((product, itemTotal) -> {
+                Map<Product, Integer> filter =  basket.getShoppingBasket().entrySet().stream()
+                        .filter(x -> product.getName() == x.getKey().getName())
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-                    Map<Product, Integer> filter =  basket.getShoppingBasket().entrySet().stream()
-                            .filter(x -> product.getName() == x.getKey().getName())
-                            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                if(filter.size() == 1){
+                    int noOfItemOccurrence = filter.entrySet().stream().findFirst().get().getValue();
 
-                    if(filter.size() == 1){
-                        int noOfItemOccurrence = filter.entrySet().stream().findFirst().get().getValue();
+                    System.out.print("Item: "+ product.getName() + " | ");
+                    System.out.print("No: "+ noOfItemOccurrence + " | ");
+                    System.out.print("Unit Price: "+ product.getUnitPrice() + " | ");
+                    System.out.println("Accumulated : "+ itemTotal);
+                    //a check for if discount was applied
+                    List<SpecialPrice> sp = specialOffers.getSpecialOffers().stream().filter(e->
+                            e.getStockItem().getName() == product.getName() && noOfItemOccurrence >= e.getNoOfItems()).collect(Collectors.toList());
+                    if(sp.size() == 1)
+                        System.out.println("Discount Applied");
+                }
 
-                        System.out.print("Item: "+ product.getName() + " | ");
-                        System.out.print("No: "+ noOfItemOccurrence + " | ");
-                        System.out.print("Unit Price: "+ product.getUnitPrice() + " | ");
-                        System.out.println("Accumulated : "+ itemTotal);
-                        //a check for if discount was applied
-                        List<SpecialPrice> sp = specialOffers.getSpecialOffers().stream().filter(e->e.getStockItem().getName() == product.getName() && noOfItemOccurrence >= e.getNoOfItems()).collect(Collectors.toList());
-                        if(sp.size() == 1)
-                            System.out.println("Discount Applied");
-                    }
+            });
 
-                });
-
-                System.out.println("Total price: "+ total);
-            }
+            System.out.println("Total price: "+ total);
 
         } catch (ExceptionHandling e){ //Catches an error if occurred during routing
             System.out.println(e.getMessage());
@@ -120,6 +121,7 @@ public class UIMapper {
             System.out.println("Enter 2 to remove a Price Rule...");
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
+            //scanner.close();
 
             UIValidator.validateIsNumeric(userInput);
             switch (Integer.parseInt(userInput)){
@@ -244,15 +246,14 @@ public class UIMapper {
         }
     }
 
-    private static boolean OutputFileContent(String fileName) throws ExceptionHandling {
-        List<String> inputLineList = utility.readInputFromResource(fileName);
-        if(!isNull(inputLineList)) {
-            inputLineList.forEach(System.out::println);  //prints out each line of input
-            return true;
-        }
-        else{
+    public static void OutputFileContent(String fileName) {
+        try {
+            List<String> inputLineList = utility.readInputFromResource(fileName);
+            if(!isNull(inputLineList)) {
+                inputLineList.forEach(System.out::println);  //prints out each line of input
+            }
+        } catch (ExceptionHandling e) {
             System.out.println(NONE_AVAILABLE);
-            return false;
         }
     }
 

@@ -13,6 +13,7 @@ class SpecialPriceTest {
     public void validateSpecialPrice_WithAnItem() {
         //given
         Product product = new Product('A', new BigDecimal(50));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
 
         //then
@@ -25,6 +26,7 @@ class SpecialPriceTest {
     public void validateSpecialPriceEquals_WithIdenticalItem() {
         //given
         Product product = new Product('A', new BigDecimal(50));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
         SpecialPrice specialPrice2 = new SpecialPrice(product, 3, new BigDecimal(130));
 
@@ -36,6 +38,7 @@ class SpecialPriceTest {
     public void validateSpecialPriceNotEquals_WithIdenticalItemButUniqueNoOfItems() {
         //given
         Product product = new Product('A', new BigDecimal(50));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
         SpecialPrice specialPrice2 = new SpecialPrice(product, 4, new BigDecimal(130));
 
@@ -47,6 +50,7 @@ class SpecialPriceTest {
     public void validateSpecialPriceEquals_HashCode() {
         //given
         Product product = new Product('A', new BigDecimal(50));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
         SpecialPrice specialPrice2 = new SpecialPrice(product, 3, new BigDecimal(130));
 
@@ -58,6 +62,7 @@ class SpecialPriceTest {
     public void validateSpecialPriceNotEquals_HashCode() {
         //given
         Product product = new Product('A', new BigDecimal(50));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
         SpecialPrice specialPrice2 = new SpecialPrice(product, 4, new BigDecimal(130));
 
@@ -69,6 +74,7 @@ class SpecialPriceTest {
     public void validateSpecialPriceNotEquals_WithIdenticalItemButUniqueDiscountPrice() {
         //given
         Product product = new Product('A', new BigDecimal(50));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
         SpecialPrice specialPrice2 = new SpecialPrice(product, 3, new BigDecimal(170));
 
@@ -78,11 +84,13 @@ class SpecialPriceTest {
 
     @Test
     public void validateSpecialPrice_With_MultipleItems() {
+        //given
         Product product = new Product('A', new BigDecimal(50));
         Product product2 = new Product('B', new BigDecimal(30));
+        //when
         SpecialPrice specialPrice = new SpecialPrice(product, 3, new BigDecimal(130));
         SpecialPrice specialPrice2 = new SpecialPrice(product2, 2, new BigDecimal(45));
-
+        //then
         assertEquals('A', specialPrice.getStockItem().getName());
         assertEquals(new BigDecimal(130), specialPrice.getDiscountPrice());
         assertEquals(3, specialPrice.getNoOfItems());
@@ -91,5 +99,4 @@ class SpecialPriceTest {
         assertEquals(new BigDecimal(45), specialPrice2.getDiscountPrice());
         assertEquals(2, specialPrice2.getNoOfItems());
     }
-
 }

@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static util.Constants.*;
 
 class UtilityTest {
-    static Utility utility;
-    StockItems stockItems;
-    SpecialOffers specialOffers;
+    private static Utility utility;
+    private StockItems stockItems;
+    private SpecialOffers specialOffers;
 
     @BeforeEach()
     public void setUp() {
@@ -34,23 +34,27 @@ class UtilityTest {
     }
 
     @Test
-    void readInputFromResource_withInvalidFile() {
+    public void readInputFromResource_withInvalidFile() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
             utility.readInputFromResource("TestFile")
         );
+        //then
         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @Test
-    void writeToFile_NoFileSpecified() {
+    public void writeToFile_NoFileSpecified() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
             Utility.writeToFile(null, "A 50")
         );
+        //then
         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @Test
-    void writeToFile_NoInputSpecified() {
+    public void writeToFile_NoInputSpecified() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
                 Utility.writeToFile("TestFile", null)
         );
@@ -58,69 +62,72 @@ class UtilityTest {
     }
 
     @Test
-    void writeToFile_NoneExisting() {
+    public void writeToFile_NoneExisting() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
             Utility.writeToFile("TestFile", "A 50")
         );
+        //then
         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @Test
-    void deleteALineFromFile_NoFileSpecified() {
+    public void deleteALineFromFile_NoFileSpecified() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
             Utility.deleteALineFromFile(null, "A 50")
         );
+        //then
         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @Test
-    void deleteALineFromFile_NoInputSpecified() {
+    public void deleteALineFromFile_NoInputSpecified() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
                 Utility.deleteALineFromFile("TestFile", null)
         );
+        //then
         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @Test
-    void deleteALineFromFile_NoneExisting() {
+    public void deleteALineFromFile_NoneExisting() {
         Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
             Utility.deleteALineFromFile("TestFile", "A 50")
         );
-         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
-    }
-
-//    @Test
-//    void deleteALineFromFile_ExistingFile_WithInvalidInputs() {
-//        Exception exception = assertThrows(ExceptionHandling.class, () ->
-//                Utility.deleteALineFromFile(TEST_ITEM_FILE, "\\t")
-//        );
-//        assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
-//    }
-
-    @Test
-    void writeToFile_NoInputSpecified_withInvalidFileName() {
-        Exception exception = assertThrows(ExceptionHandling.class, () ->
-                Utility.writeToFile("", "\n")
-        );
+        //then
         assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @Test
-    void validateReadInput() throws ExceptionHandling {
-        //given
+    public void writeToFile_NoInputSpecified_withInvalidFileName() {
+        Exception exception = assertThrows(ExceptionHandling.class, () ->
+                //when
+                Utility.writeToFile("", "\n")
+        );
+        //then
+        assertEquals(INTERNAL_SERVER_ERROR, exception.getMessage());
+    }
+
+    @Test
+    public void validateReadInput() throws ExceptionHandling {
+        //when
         utility = new Utility();
         List<String> items = utility.readInputFromResource(ITEMS);
+        //then
         assertNotNull(items);
     }
 
     @Test
-    void validateInitialise() throws ExceptionHandling {
-        //given
+    public void validateInitialise() throws ExceptionHandling {
+        //when
         utility.initialise(stockItems, specialOffers);
+        //then
+        //no error
         assertNotNull(stockItems.getProducts());
         assertNotNull(specialOffers.getSpecialOffers());
-
-
     }
 
     @Test

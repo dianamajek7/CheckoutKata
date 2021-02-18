@@ -14,10 +14,10 @@ import static util.Constants.ITEM_NOTFOND;
 import static util.Constants.NULLFOUND;
 
 class BasketTest {
-    Basket basket;
-    StockItems stockItems;
-    SpecialOffers specialOffers;
-    static Utility utility;
+    private Basket basket;
+    private StockItems stockItems;
+    private SpecialOffers specialOffers;
+    private static Utility utility;
 
     @BeforeEach()
     public void setUp() throws ExceptionHandling {
