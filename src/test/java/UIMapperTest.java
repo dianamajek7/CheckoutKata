@@ -148,8 +148,77 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks() {
+    public void modifyStocks_withAddItemInvalidOption() {
+        //given
+        String testInput = "A";
+        setInput(testInput);
+        //when
+        UIMapper.modifyStocks(stockItems);
+
+        //then
+        assertEquals(NUMERIC_ERROR, getOutput());
     }
+
+    @Test
+    public void modifyStocks_withAddItemValidInput() {
+        //given
+        String testInput = "1\nA 4\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifyStocks(stockItems);
+        //then
+        assertEquals(ITEM_EXIST, getOutput());
+    }
+
+    @Test
+    public void modifyStocks_withAddItemZeroPrice() {
+        //given
+        String testInput = "1\nA 0\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifyStocks(stockItems);
+        //then
+        assertEquals(PRICE_ZERO, getOutput());
+    }
+
+    @Test
+    public void modifyStocks_withAddItemName() {
+        //given
+        String testInput = "1\nA3\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifyStocks(stockItems);
+        //then
+        assertEquals(ONLY_LETTERS_AND_NUMBERS_ALLOWED, getOutput());
+    }
+
+    @Test
+    public void modifyStocks_withNoneExistingOption() {
+        //given
+        String testInput = "3\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifyStocks(stockItems);
+        //then
+        assertEquals(INVALID_OPTION, getOutput());
+    }
+
+    @Test
+    public void modifyStocks_withRemoveItem() {
+        //given
+        String testInput = "2\nZ 3\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifyStocks(stockItems);
+        //then
+        assertEquals(ITEM_NOTFOND, getOutput());
+    }
+
 
     @Test
     public void modifySpecialPrice() {

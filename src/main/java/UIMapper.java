@@ -89,21 +89,20 @@ public class UIMapper {
                 case 1:
                     // addItemToStock
                     System.out.println("\nAdd item to Stock - Name, UnitPrice i.e - A 4: " );
-                    scanner = new Scanner(System.in);
                     userInput = scanner.nextLine();
                     addItemToStock(userInput, stockItems);
                     break;
                 case 2:
                     // removeFromStock
                     System.out.println("\nRemove item from Stock - Name i.e - A: " );
-                    scanner = new Scanner(System.in);
                     userInput = scanner.nextLine();
                     removeItemFromStock(userInput, stockItems);
                     break;
                 default:
-                    System.out.println("Invalid Option");
+                    System.out.println(INVALID_OPTION);
                     break;
             }
+            scanner.close();
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
         }
@@ -121,28 +120,26 @@ public class UIMapper {
             System.out.println("Enter 2 to remove a Price Rule...");
             Scanner scanner = new Scanner(System.in);
             String userInput = scanner.nextLine();
-            //scanner.close();
 
             UIValidator.validateIsNumeric(userInput);
             switch (Integer.parseInt(userInput)){
                 case 1:
                     // addSpecialRule
                     System.out.println("\nAdd Pricing rule to Whole Sale - Name, No of Items, discount price  i.e - A 4 50: " );
-                    scanner = new Scanner(System.in);
                     userInput = scanner.nextLine();
                     addISpecialRule(userInput, stockItems, specialOffers);
                     break;
                 case 2:
                     // removeItemFromWholeSales
                     System.out.println("\nRemove item from Stock - Name, No of Items i.e - A 3: " );
-                    scanner = new Scanner(System.in);
                     userInput = scanner.nextLine();
                     removeItemFromWholeSale(userInput, specialOffers);
                     break;
                 default:
-                    System.out.println("Invalid Option");
+                    System.out.println(INVALID_OPTION);
                     break;
             }
+            scanner.close();
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
         }
@@ -160,7 +157,7 @@ public class UIMapper {
                 char item = userInput.split(" ")[0].toUpperCase().charAt(0);
                 BigDecimal unitPrice = new BigDecimal(strUnitPrice);
 
-                if(unitPrice.equals(BigDecimal.ZERO)){
+                if(!unitPrice.equals(BigDecimal.ZERO)){
                     stockItems.addStockItem(item, unitPrice, ITEMS_FILE);    //add Item to the list of existing stocks
                     System.out.println("Success Added, current Stock...");
                     OutputFileContent(ITEMS); //reloads currentStock
@@ -169,9 +166,6 @@ public class UIMapper {
                     LOGGER.log(Level.SEVERE, PRICE_ZERO);
                     System.out.println(PRICE_ZERO);
                 }
-            }else {
-                LOGGER.log(Level.SEVERE, ALLDETAILS_REQUIRED);
-                System.out.println(ALLDETAILS_REQUIRED);
             }
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
@@ -179,7 +173,6 @@ public class UIMapper {
     }
 
     private static void removeItemFromStock(String userInput, StockItems stockItems) {
-
         try {
             char item = userInput.toUpperCase().charAt(0);
             stockItems.removeStockItem(item, ITEMS_FILE); //remove item from existing list of stocks
@@ -203,7 +196,7 @@ public class UIMapper {
                 char item = userInput.split(" ")[0].toUpperCase().charAt(0);
                 int nofItems = Integer.parseInt(str_nofItems);
                 BigDecimal discountPrice = new BigDecimal(str_discountPrice);
-                if (nofItems != 0 && discountPrice.equals(BigDecimal.ZERO)) {//adds pricing rule to whole sale list
+                if (nofItems != 0 && !discountPrice.equals(BigDecimal.ZERO)) {//adds pricing rule to whole sale list
                     specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICE_FILE);
                     System.out.println("Success Added, current WholeSale...");
                     OutputFileContent(SPECIALPRICES); //reloads current Sales

@@ -21,11 +21,12 @@ public final class Constants {
     public static String EMPTY_SALES = "Empty Sales";
     public static String ALLDETAILS_REQUIRED = "Invalid Format, Must enter all required Fields";
     public static String ONLY_LETTERS_ALLOWED = "Only Letters allowed with no Spacing";
-    public static String ONLY_LETTERS_AND_NUMBERS_ALLOWED = "Only Letters and Numbers allowed including spacing";
+    public static String ONLY_LETTERS_AND_NUMBERS_ALLOWED = "Only Letters and Numbers allowed including specified spacing";
     public static String INTERNAL_SERVER_ERROR = "An Internal Server Error Occurred";
     public static String NONE_AVAILABLE = "None available";
     public static String REGEX_ONLY_LETTERS = "^[A-Za-z]*$";
     public static String REGEX_ONLY_LETTERS_AND_NUMBERS = "[A-z].[0-9]+.*$";
     public static String FILE_DOES_NOT_EXISTS = "File does not Exist";
+    public static String INVALID_OPTION = "Invalid Option";
 
 }
