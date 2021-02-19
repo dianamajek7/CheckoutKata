@@ -38,7 +38,7 @@ rules each time we start handling a checkout transaction.
     - the CheckoutTest Class handles the different edge cases
 - Classes like Checkout and Basket class consists of operations which occurs in a real world 
     - i.e: a shopping cart with a list of items and the no of occurrence including returning the total price of each item occurrence in the basket.
-- To run the application - I have added a jar file including the unit tests
+- To run the application - "UI.Java" is the main file and I have also added a jar file including the unit tests.
     - Application Framework uses Maven and Java 8 with no third-Party libraries or dependencies, it should be straightforward to spin up on a local machine
         - "mvn clean install" to build the project as well as run the test
         - "mvn test" to run just the test
