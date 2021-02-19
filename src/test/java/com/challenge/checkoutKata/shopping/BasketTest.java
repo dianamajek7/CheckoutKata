@@ -13,7 +13,7 @@ import static com.challenge.checkoutKata.util.Constants.NULLFOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BasketTest {
+public class BasketTest {
     private Basket basket;
     private StockItems stockItems;
     private SpecialOffers specialOffers;

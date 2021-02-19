@@ -12,7 +12,7 @@ import java.util.List;
 import static com.challenge.checkoutKata.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class UtilityTest {
+public class UtilityTest {
     private static Utility utility;
     private StockItems stockItems;
     private SpecialOffers specialOffers;

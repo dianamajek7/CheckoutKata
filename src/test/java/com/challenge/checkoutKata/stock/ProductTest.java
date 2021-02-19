@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class ProductTest {
+public class ProductTest {
     @Test
     public void validateStockItem_ContainsAUniqueCode() {
         //given

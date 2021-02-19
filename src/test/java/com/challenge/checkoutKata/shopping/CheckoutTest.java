@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CheckoutTest {
+public class CheckoutTest {
     private Basket basket;
     private Checkout checkout;
     private StockItems stockItems;

@@ -14,7 +14,7 @@ import static com.challenge.checkoutKata.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class SpecialOffersTest {
+public class SpecialOffersTest {
     private StockItems stockItems;
     private SpecialOffers specialOffers;
     private List<String> items;

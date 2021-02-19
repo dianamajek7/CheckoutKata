@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static com.challenge.checkoutKata.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class UIValidatorTest {
+public class UIValidatorTest {
 
     @Test
     public void validateIsNumeric_NullInput() {

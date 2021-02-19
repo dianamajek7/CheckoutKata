@@ -14,7 +14,7 @@ import static com.challenge.checkoutKata.util.Constants.NUMERIC_ERROR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class UITest {
+public class UITest {
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
     private ByteArrayInputStream testIn;
@@ -47,7 +47,7 @@ class UITest {
 
 
     @Test
-    void validate_main_WithNoneIntegerOption() {
+    public void validate_main_WithNoneIntegerOption() {
         //given
         String testInput = "n";
         setInput(testInput);
@@ -60,7 +60,7 @@ class UITest {
     }
 
     @Test
-    void validate_main_WithNoneInvalidOption() {
+    public void validate_main_WithNoneInvalidOption() {
         //given
         String testInput = "6";
         setInput(testInput);
@@ -73,7 +73,7 @@ class UITest {
     }
 
     @Test
-    void validate_main_WithNShoppingOption() {
+    public void validate_main_WithNShoppingOption() {
         //given
         String testInput = "1";
         setInput(testInput);
@@ -88,7 +88,7 @@ class UITest {
     }
 
     @Test
-    void validate_main_WithModifyStocksOption() {
+    public void validate_main_WithModifyStocksOption() {
         //given
         String testInput = "2";
         setInput(testInput);
@@ -103,7 +103,7 @@ class UITest {
     }
 
     @Test
-    void validate_main_WithModifySpecialPriceOption() {
+    public void validate_main_WithModifySpecialPriceOption() {
         //given
         String testInput = "3";
         setInput(testInput);

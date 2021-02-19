@@ -15,7 +15,7 @@ import java.io.*;
 import static com.challenge.checkoutKata.util.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UIMapperTest {
+public class UIMapperTest {
     private Basket basket;
     private Checkout checkout;
     private StockItems stockItems;
