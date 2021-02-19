@@ -32,8 +32,8 @@ rules each time we start handling a checkout transaction.
     -   The logic, presentation entities and views are well separated and managed
         
 ### Application
-- This is a standalone console application with no UI
-- The UI Class is the runner class which contains static main function
+- This is a standalone console application with no com.challenge.checkoutKata.UI
+- The com.challenge.checkoutKata.UI Class is the runner class which contains static main function
 - Extensive use of assertions within Unit test, ensures to test the classes and its methods
     - the CheckoutTest Class handles the different edge cases
 - Classes like Checkout and Basket class consists of operations which occurs in a real world 
