@@ -150,7 +150,6 @@ public class UIMapper {
     private static void addItemToStock(String userInput, StockItems stockItems) {
 
         try{
-            //UIValidator.validateIsEmpty(userInput);
             UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 2){
                 String strUnitPrice = userInput.split(" ")[1];
@@ -186,7 +185,6 @@ public class UIMapper {
     private static void addISpecialRule(String userInput, StockItems stockItems, SpecialOffers specialOffers) {
 
         try{
-           // UIValidator.validateIsEmpty(userInput);
             UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 3) {
                 String str_nofItems = userInput.split(" ")[1];

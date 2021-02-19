@@ -7,6 +7,8 @@ import wholesale.SpecialOffers;
 
 import java.util.Scanner;
 
+import static util.Constants.INVALID_OPTION;
+
 public class UI {
     private static final Utility utility = new Utility();
     private static final StockItems stockItems = new StockItems();
@@ -48,7 +50,7 @@ public class UI {
                 UIMapper.modifySpecialPrice(stockItems, specialOffers);
                 break;
             default:
-                System.out.println("Invalid Option");
+                System.out.println(INVALID_OPTION);
                 break;
         }
 

@@ -62,7 +62,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void shopping_WithInvalidFormat() {
+    public void validate_Shopping_WithInvalidFormat() {
         //given
         String testInput = "A B C D";
         setInput(testInput);
@@ -74,7 +74,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void shopping_WithCharacterInput() {
+    public void validate_Shopping_WithCharacterInput() {
         //given
         String testInput = "/";
         setInput(testInput);
@@ -86,7 +86,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void shopping_WithCharactersAndNumbersInput() {
+    public void validate_Shopping_WithCharactersAndNumbersInput() {
         //given
         String testInput = "AA89";
         setInput(testInput);
@@ -98,7 +98,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void shopping_WithNumbersInput() {
+    public void validate_Shopping_WithNumbersInput() {
         //given
         String testInput = "4334";
         setInput(testInput);
@@ -110,7 +110,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void shopping_WithItem_NotFound() {
+    public void validate_Shopping_WithItem_NotFound() {
         //given
         String testInput = "ZZ";
         setInput(testInput);
@@ -122,7 +122,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void shopping_WithValidItems() {
+    public void validate_Shopping_WithValidItems() {
         //given
         String testInput = "ABB";
         setInput(testInput);
@@ -134,7 +134,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void OutputFileContent_EmptyFile() throws IOException {
+    public void validate_OutputFileContent_EmptyFile() throws IOException {
         //given
         FileWriter fileWriter = new FileWriter("src/test/resources/temp.txt");
         //when
@@ -148,7 +148,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_WithInvalidOptionChar() {
+    public void validate_ModifyStocks_WithInvalidOptionChar() {
         //given
         String testInput = "A";
         setInput(testInput);
@@ -160,7 +160,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_AddItem_WithValidInput() {
+    public void validate_ModifyStocks_AddItem_WithValidInput() {
         //given
         String testInput = "1\nA 4\n";
         setInput(testInput);
@@ -172,7 +172,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_WithAddItemZeroPrice() {
+    public void validate_ModifyStocks_WithAddItemZeroPrice() {
         //given
         String testInput = "1\nA 0\n";
         setInput(testInput);
@@ -184,7 +184,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_AddItemName() {
+    public void validate_ModifyStocks_AddItemName() {
         //given
         String testInput = "1\nA3\n";
         setInput(testInput);
@@ -196,7 +196,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_WithNoneExistingOption() {
+    public void validate_ModifyStocks_WithNoneExistingOption() {
         //given
         String testInput = "3\n";
         setInput(testInput);
@@ -208,7 +208,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_AddNewItem() throws ExceptionHandling {
+    public void validate_ModifyStocks_AddNewItem() throws ExceptionHandling {
 
         //given
         String testInput = "1\nF 50\n";
@@ -217,14 +217,14 @@ class UIMapperTest {
         UIMapper.modifyStocks(stockItems);
 
         //then
-        //no error
-        assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());  //validate the increment in size of list
+        //no error, validate the increment in size of list
+        assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());
         assertEquals("F 50", getOutput());
         stockItems.removeStockItem('F', ITEMS_FILE);
     }
 
     @Test
-    public void modifyStocks_AndRemoveNonFoundItem() {
+    public void validate_ModifyStocks_AndRemoveNonFoundItem() {
         //given
         String testInput = "2\nZ 3\n";
         setInput(testInput);
@@ -236,7 +236,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_AndRemoveNullItem() {
+    public void validate_ModifyStocks_AndRemoveNullItem() {
         //given
         String testInput = "2\n \n";
         setInput(testInput);
@@ -248,7 +248,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_AndRemoveAnItem() {
+    public void validate_ModifyStocks_AndRemoveAnItem() {
 
         //given
         String testInput = "1\nF 50\n";
@@ -263,7 +263,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_WithInvalidOptionChar() {
+    public void validate_ModifySpecialPrice_WithInvalidOptionChar() {
         //given
         String testInput = "A";
         setInput(testInput);
@@ -275,7 +275,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_WithInvalidOption() {
+    public void validate_ModifySpecialPrice_WithInvalidOption() {
         //given
         String testInput = "3";
         setInput(testInput);
@@ -287,7 +287,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AddSpecialRule_WithInValidInputFormat() {
+    public void validate_ModifySpecialPrice_AddSpecialRule_WithInValidInputFormat() {
         //given
         String testInput = "1\nA 4\n";
         setInput(testInput);
@@ -299,7 +299,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AddSpecialRule_WithInvalidInputOnlyLetters() {
+    public void validate_ModifySpecialPrice_AddSpecialRule_WithInvalidInputOnlyLetters() {
         //given
         String testInput = "1\nAA\n";
         setInput(testInput);
@@ -311,7 +311,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AddSpecialRule_WithAZeroDiscountPrice() {
+    public void validate_ModifySpecialPrice_AddSpecialRule_WithAZeroDiscountPrice() {
         //given
         String testInput = "1\nA 6 0\n";
         setInput(testInput);
@@ -323,7 +323,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AddSpecialRule_WithAValidInput() throws ExceptionHandling {
+    public void validate_ModifySpecialPrice_AddSpecialRule_WithAValidInput() throws ExceptionHandling {
         //given
         String testInput = "1\nA 6 90\n";
         setInput(testInput);
@@ -336,7 +336,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AddSpecialRule_WithExistingRule() {
+    public void validate_ModifySpecialPrice_AddSpecialRule_WithExistingRule() {
         //given
         String testInput = "1\nA 3 90\n";
         setInput(testInput);
@@ -348,7 +348,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AndRemoveSpecialRule_WithInValidInputFormat() {
+    public void validate_ModifySpecialPrice_AndRemoveSpecialRule_WithInValidInputFormat() {
         //given
         String testInput = "2\nA A\n";
         setInput(testInput);
@@ -360,7 +360,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AndRemoveSpecialRule_WithInvalidInput() {
+    public void validate_ModifySpecialPrice_AndRemoveSpecialRule_WithInvalidInput() {
         //given
         String testInput = "2\nA 4 A\n";
         setInput(testInput);
@@ -372,7 +372,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AndRemoveSpecialRule_WithNoneExistingRule() {
+    public void validate_ModifySpecialPrice_AndRemoveSpecialRule_WithNoneExistingRule() {
         //given
         String testInput = "2\nA 6\n";
         setInput(testInput);
@@ -384,7 +384,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifySpecialPrice_AndRemoveSpecialRule() {
+    public void validate_ModifySpecialPrice_AndRemoveSpecialRule() {
 
         //given
         String testInput = "1\nA 5 180\n";
@@ -397,6 +397,5 @@ class UIMapperTest {
         UIMapper.modifySpecialPrice(stockItems, specialOffers);
         assertEquals("Successfully Deleted, Specified Rule...", getOutput());
     }
-
 
 }
