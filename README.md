@@ -52,5 +52,5 @@ rules each time we start handling a checkout transaction.
     - To add or remove a stock item, once operation is completed it is updated in the file, making it reusable
           - It also avoids duplicate item name (SKUs) to be added in the inventory list 
     - To add or remove a Special Pricing rule for an item, once operation is completed it is updated in the file, making it reusable
-        - It avoids duplicate Pricing rule with same itemName and no of item on offer
+        - It avoids duplicating Pricing rule with same itemName and no of item on offer
   
