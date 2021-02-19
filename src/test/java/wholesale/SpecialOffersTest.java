@@ -83,12 +83,12 @@ class SpecialOffersTest {
 
         //when
         int oldSize = specialOffers.getSpecialOffers().size();
-        specialOffers.addSpecialOffer('E', 4, new BigDecimal(95), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        specialOffers.addSpecialOffer('E', 4, new BigDecimal(95), stockItems.getProducts(), TEST_SPECIALPRICES_FILE);
 
         //then
         //no error
         assertEquals(oldSize+ 1, specialOffers.getSpecialOffers().size());  //validate the increment in size of list
-        specialOffers.removeSpecialOffer('E', 4, TEST_SPECIALPRICE_FILE); //removed input in file, to be reused by other test cases
+        specialOffers.removeSpecialOffer('E', 4, TEST_SPECIALPRICES_FILE); //removed input in file, to be reused by other test cases
     }
 
     @Test
@@ -100,7 +100,7 @@ class SpecialOffersTest {
             utility.initialise(stockItems, specialOffers);
 
             //when
-            specialOffers.addSpecialOffer('B', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+            specialOffers.addSpecialOffer('B', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICES_FILE);
         });
         //then
         assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
@@ -117,7 +117,7 @@ class SpecialOffersTest {
             utility.initialise(stockItems, specialOffers);
 
             //when
-            specialOffers.addSpecialOffer('F', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+            specialOffers.addSpecialOffer('F', 2, new BigDecimal(45), stockItems.getProducts(), TEST_SPECIALPRICES_FILE);
         });
         //then
         assertEquals(utility.readInputFromResource(SPECIALPRICES).size(), specialOffers.getSpecialOffers().size());
@@ -132,11 +132,11 @@ class SpecialOffersTest {
         utility.initialise(stockItems, specialOffers);
 
         //when
-        specialOffers.addSpecialOffer('A', 7, new BigDecimal(50), stockItems.getProducts(), TEST_SPECIALPRICE_FILE);
+        specialOffers.addSpecialOffer('A', 7, new BigDecimal(50), stockItems.getProducts(), TEST_SPECIALPRICES_FILE);
         int oldSize = specialOffers.getSpecialOffers().size();
         //then
 
-        specialOffers.removeSpecialOffer('A', 7, TEST_SPECIALPRICE_FILE);
+        specialOffers.removeSpecialOffer('A', 7, TEST_SPECIALPRICES_FILE);
         assertEquals(oldSize - 1, specialOffers.getSpecialOffers().size());    //the size stays the same
 
     }
@@ -151,7 +151,7 @@ class SpecialOffersTest {
             utility.initialise(stockItems, specialOffers);
 
             //when
-            specialOffers.removeSpecialOffer('Z', 3, TEST_SPECIALPRICE_FILE);
+            specialOffers.removeSpecialOffer('Z', 3, TEST_SPECIALPRICES_FILE);
         });
         int oldSize = specialOffers.getSpecialOffers().size();
         //then

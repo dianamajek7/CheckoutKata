@@ -62,12 +62,12 @@ class StockItemsTest {
         //when
         stockItems.loadStockItems(items);
         assertEquals(items.size(), stockItems.getProducts().size());    //checking the current size
-        stockItems.addStockItem('F', new BigDecimal(50), TEST_ITEM_FILE);
+        stockItems.addStockItem('F', new BigDecimal(50), TEST_ITEMS_FILE);
 
         //then
         //no error
         assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());  //validate the increment in size of list
-        stockItems.removeStockItem('F', TEST_ITEM_FILE);
+        stockItems.removeStockItem('F', TEST_ITEMS_FILE);
     }
 
     @Test
@@ -76,7 +76,7 @@ class StockItemsTest {
         Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //when
             stockItems.loadStockItems(items);
-            stockItems.addStockItem('B', new BigDecimal(30), TEST_ITEM_FILE);
+            stockItems.addStockItem('B', new BigDecimal(30), TEST_ITEMS_FILE);
         });
         //then
         assertEquals(utility.readInputFromResource(ITEMS).size(), stockItems.getProducts().size());
@@ -89,12 +89,12 @@ class StockItemsTest {
 
         //when
         stockItems.loadStockItems(items);
-        stockItems.addStockItem('L', new BigDecimal(99), TEST_ITEM_FILE);
+        stockItems.addStockItem('L', new BigDecimal(99), TEST_ITEMS_FILE);
 
         //then
         //no error
         assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());
-        stockItems.removeStockItem('L', TEST_ITEM_FILE);
+        stockItems.removeStockItem('L', TEST_ITEMS_FILE);
         assertEquals(items.size(), stockItems.getProducts().size());    //the size stays the same
     }
 
@@ -103,7 +103,7 @@ class StockItemsTest {
         Exception exception = assertThrows(ExceptionHandling.class, () -> {
             //when
             stockItems.loadStockItems(items);
-            stockItems.removeStockItem('L', TEST_ITEM_FILE);
+            stockItems.removeStockItem('L', TEST_ITEMS_FILE);
         });
         //then
         assertEquals(ITEM_NOTFOND, exception.getMessage());

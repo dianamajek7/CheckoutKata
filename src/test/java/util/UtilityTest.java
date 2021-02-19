@@ -136,12 +136,12 @@ class UtilityTest {
         //when
         List<String> items = utility.readInputFromResource(ITEMS);
         stockItems.loadStockItems(items);
-        stockItems.addStockItem('L', new BigDecimal(99), TEST_ITEM_FILE);
+        stockItems.addStockItem('L', new BigDecimal(99), TEST_ITEMS_FILE);
 
         //then
         //no error
         assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());
-        stockItems.removeStockItem('L', TEST_ITEM_FILE);
+        stockItems.removeStockItem('L', TEST_ITEMS_FILE);
         assertEquals(items.size(), stockItems.getProducts().size());    //the size stays the same
     }
 

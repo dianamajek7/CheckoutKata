@@ -8,11 +8,12 @@ import wholesale.SpecialOffers;
 import java.util.Scanner;
 
 public class UI {
+    private static final Utility utility = new Utility();
     private static final StockItems stockItems = new StockItems();
     private static final SpecialOffers specialOffers =  new SpecialOffers();
     private static final Basket basket = new Basket(stockItems);
     private static final Checkout checkout = new Checkout(specialOffers);
-    private static final Utility utility = new Utility();
+
 
     public static void main(String[] args) {
 

@@ -5,10 +5,10 @@ public final class Constants {
     private Constants() {}  //private constructor hence this class is non-instantiable.
     public static String ITEMS = "Items";
     public static String SPECIALPRICES = "SpecialPrices";
-    public static String SPECIALPRICE_FILE = "src/main/resources/SpecialPrices";
+    public static String SPECIALPRICES_FILE = "src/main/resources/SpecialPrices";
     public static String ITEMS_FILE = "src/main/resources/Items";
-    public static String TEST_ITEM_FILE = "src/test/resources/Items";
-    public static String TEST_SPECIALPRICE_FILE = "src/test/resources/SpecialPrices";
+    public static String TEST_ITEMS_FILE = "src/test/resources/Items";
+    public static String TEST_SPECIALPRICES_FILE = "src/test/resources/SpecialPrices";
     public static String NULLFOUND = "Product is null";
     public static String FILEOPERAATION_SUCCESSFUL = "File Operation successfully!";
     public static String PRICINGRULE_EXIST = "Special Pricing already exist";

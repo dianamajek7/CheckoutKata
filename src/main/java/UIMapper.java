@@ -176,7 +176,7 @@ public class UIMapper {
         try {
             char item = userInput.toUpperCase().charAt(0);
             stockItems.removeStockItem(item, ITEMS_FILE); //remove item from existing list of stocks
-            System.out.println("\nSuccess Deleted, Current Stock...");
+            System.out.println("\nSuccessfully Deleted, Current Stock...");
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
         }
@@ -197,7 +197,7 @@ public class UIMapper {
                 int nofItems = Integer.parseInt(str_nofItems);
                 BigDecimal discountPrice = new BigDecimal(str_discountPrice);
                 if (nofItems != 0 && !discountPrice.equals(BigDecimal.ZERO)) {//adds pricing rule to whole sale list
-                    specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICE_FILE);
+                    specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICES_FILE);
                     System.out.println("Success Added, current WholeSale...");
                     OutputFileContent(SPECIALPRICES); //reloads current Sales
                     System.out.println(userInput.toUpperCase());
@@ -227,7 +227,7 @@ public class UIMapper {
                 UIValidator.validateIsNumeric(str_noOfItems);
 
                 int noOfItems = Integer.parseInt(str_noOfItems);
-                specialOffers.removeSpecialOffer(item, noOfItems, SPECIALPRICE_FILE);    //removes rule from whole sale
+                specialOffers.removeSpecialOffer(item, noOfItems, SPECIALPRICES_FILE);    //removes rule from whole sale
                 System.out.println("\nSuccess Deleted, Current Stock...");
 
             } else {

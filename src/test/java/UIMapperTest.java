@@ -208,6 +208,22 @@ class UIMapperTest {
     }
 
     @Test
+    public void modifyStocks_AddNewItem() throws ExceptionHandling {
+
+        //given
+        String testInput = "1\nF 50\n";
+        setInput(testInput);
+        //when
+        UIMapper.modifyStocks(stockItems);
+
+        //then
+        //no error
+        assertEquals(utility.readInputFromResource(ITEMS).size() + 1, stockItems.getProducts().size());  //validate the increment in size of list
+        assertEquals("F 50", getOutput());
+        stockItems.removeStockItem('F', ITEMS_FILE);
+    }
+
+    @Test
     public void modifyStocks_withRemoveItem() {
         //given
         String testInput = "2\nZ 3\n";
@@ -219,8 +235,35 @@ class UIMapperTest {
         assertEquals(ITEM_NOTFOND, getOutput());
     }
 
+    @Test
+    public void modifyStocks_WithRemoveNullItem() {
+        //given
+        String testInput = "2\n \n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifyStocks(stockItems);
+        //then
+        assertEquals(ITEM_NOTFOND, getOutput());
+    }
+
+    @Test
+    public void modifyStocks_With_RemoveAnItem() {
+
+        //given
+        String testInput = "1\nF 50\n";
+        setInput(testInput);
+        //when
+        UIMapper.modifyStocks(stockItems);
+        testInput = "2\nF\n";
+        setInput(testInput);
+        //then
+        UIMapper.modifyStocks(stockItems);
+        assertEquals("Successfully Deleted, Current Stock...", getOutput());
+    }
 
     @Test
     public void modifySpecialPrice() {
+
     }
 }
