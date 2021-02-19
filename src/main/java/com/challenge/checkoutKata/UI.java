@@ -32,7 +32,7 @@ public class UI {
             String userInput = scanner.nextLine();
 
             UIValidator.validateIsNumeric(userInput);
-            menu(Integer.parseInt(userInput));  //loads each com.challenge.checkoutKata.UI path, plays a role of a route
+            menu(Integer.parseInt(userInput));  //loads each UI path, plays a role of a route
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
         }

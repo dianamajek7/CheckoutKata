@@ -161,7 +161,7 @@ public class UIMapper {
 
                 if(!unitPrice.equals(BigDecimal.ZERO)){
                     stockItems.addStockItem(item, unitPrice, ITEMS_FILE);    //add Item to the list of existing stocks
-                    System.out.println("Success Added, current Stock...");
+                    System.out.println("Successfully Added, current Stock...");
                     OutputFileContent(ITEMS); //reloads currentStock
                     System.out.println(userInput.toUpperCase());
                 } else {
@@ -199,7 +199,7 @@ public class UIMapper {
                 BigDecimal discountPrice = new BigDecimal(str_discountPrice);
                 if (nofItems != 0 && !discountPrice.equals(BigDecimal.ZERO)) {//adds pricing rule to whole sale list
                     specialOffers.addSpecialOffer(item, nofItems, discountPrice, stockItems.getProducts(), SPECIALPRICES_FILE);
-                    System.out.println("Success Added, current WholeSale...");
+                    System.out.println("Successfully Added, current WholeSale...");
                     OutputFileContent(SPECIALPRICES); //reloads current Sales
                     System.out.println(userInput.toUpperCase());
                 } else {
