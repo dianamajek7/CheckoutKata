@@ -99,6 +99,7 @@ public class UIMapper {
                     removeItemFromStock(userInput, stockItems);
                     break;
                 default:
+                    LOGGER.log(Level.SEVERE, "Caught Exception: " + INVALID_OPTION);
                     System.out.println(INVALID_OPTION);
                     break;
             }
@@ -136,6 +137,7 @@ public class UIMapper {
                     removeItemFromWholeSale(userInput, specialOffers);
                     break;
                 default:
+                    LOGGER.log(Level.SEVERE, "Caught Exception: " + INVALID_OPTION);
                     System.out.println(INVALID_OPTION);
                     break;
             }
@@ -143,13 +145,12 @@ public class UIMapper {
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     private static void addItemToStock(String userInput, StockItems stockItems) {
 
         try{
-            UIValidator.validateIsEmpty(userInput);
+            //UIValidator.validateIsEmpty(userInput);
             UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 2){
                 String strUnitPrice = userInput.split(" ")[1];
@@ -163,7 +164,7 @@ public class UIMapper {
                     OutputFileContent(ITEMS); //reloads currentStock
                     System.out.println(userInput.toUpperCase());
                 } else {
-                    LOGGER.log(Level.SEVERE, PRICE_ZERO);
+                    LOGGER.log(Level.SEVERE, "Caught Exception: " + PRICE_ZERO);
                     System.out.println(PRICE_ZERO);
                 }
             }
@@ -176,7 +177,7 @@ public class UIMapper {
         try {
             char item = userInput.toUpperCase().charAt(0);
             stockItems.removeStockItem(item, ITEMS_FILE); //remove item from existing list of stocks
-            System.out.println("\nSuccessfully Deleted, Current Stock...");
+            System.out.println("\nSuccessfully Deleted, Specified Stock...");
         } catch (ExceptionHandling e) {
             System.out.println(e.getMessage());
         }
@@ -185,7 +186,7 @@ public class UIMapper {
     private static void addISpecialRule(String userInput, StockItems stockItems, SpecialOffers specialOffers) {
 
         try{
-            UIValidator.validateIsEmpty(userInput);
+           // UIValidator.validateIsEmpty(userInput);
             UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 3) {
                 String str_nofItems = userInput.split(" ")[1];
@@ -202,12 +203,12 @@ public class UIMapper {
                     OutputFileContent(SPECIALPRICES); //reloads current Sales
                     System.out.println(userInput.toUpperCase());
                 } else {
-                    LOGGER.log(Level.SEVERE, PRICE_ZERO);
+                    LOGGER.log(Level.SEVERE, "Caught Exception: " + PRICE_ZERO);
                     System.out.println(PRICE_ZERO);
                 }
 
             } else{
-                LOGGER.log(Level.SEVERE, ALLDETAILS_REQUIRED);
+                LOGGER.log(Level.SEVERE, "Caught Exception: " + ALLDETAILS_REQUIRED);
                 System.out.println(ALLDETAILS_REQUIRED);
             }
 
@@ -219,7 +220,7 @@ public class UIMapper {
 
     private static void removeItemFromWholeSale(String userInput, SpecialOffers specialOffers) {
         try{
-            UIValidator.validateIsEmpty(userInput);
+          //  UIValidator.validateIsEmpty(userInput);
             UIValidator.validateInputFormat(userInput, REGEX_ONLY_LETTERS_AND_NUMBERS, ONLY_LETTERS_AND_NUMBERS_ALLOWED);
             if(userInput.split(" ").length == 2) {
                 char item = userInput.toUpperCase().charAt(0);
@@ -228,10 +229,10 @@ public class UIMapper {
 
                 int noOfItems = Integer.parseInt(str_noOfItems);
                 specialOffers.removeSpecialOffer(item, noOfItems, SPECIALPRICES_FILE);    //removes rule from whole sale
-                System.out.println("\nSuccess Deleted, Current Stock...");
+                System.out.println("\nSuccessfully Deleted, Specified Rule...");
 
             } else {
-                LOGGER.log(Level.SEVERE, ALLDETAILS_REQUIRED);
+                LOGGER.log(Level.SEVERE, "Caught Exception: " + ALLDETAILS_REQUIRED);
                 System.out.println(ALLDETAILS_REQUIRED);
             }
         } catch (ExceptionHandling e) {

@@ -148,7 +148,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_withAddItemInvalidOption() {
+    public void modifyStocks_WithInvalidOptionChar() {
         //given
         String testInput = "A";
         setInput(testInput);
@@ -160,7 +160,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_withAddItemValidInput() {
+    public void modifyStocks_AddItem_WithValidInput() {
         //given
         String testInput = "1\nA 4\n";
         setInput(testInput);
@@ -172,7 +172,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_withAddItemZeroPrice() {
+    public void modifyStocks_WithAddItemZeroPrice() {
         //given
         String testInput = "1\nA 0\n";
         setInput(testInput);
@@ -184,7 +184,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_withAddItemName() {
+    public void modifyStocks_AddItemName() {
         //given
         String testInput = "1\nA3\n";
         setInput(testInput);
@@ -196,7 +196,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_withNoneExistingOption() {
+    public void modifyStocks_WithNoneExistingOption() {
         //given
         String testInput = "3\n";
         setInput(testInput);
@@ -224,7 +224,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_withRemoveItem() {
+    public void modifyStocks_AndRemoveNonFoundItem() {
         //given
         String testInput = "2\nZ 3\n";
         setInput(testInput);
@@ -236,7 +236,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_WithRemoveNullItem() {
+    public void modifyStocks_AndRemoveNullItem() {
         //given
         String testInput = "2\n \n";
         setInput(testInput);
@@ -248,7 +248,7 @@ class UIMapperTest {
     }
 
     @Test
-    public void modifyStocks_With_RemoveAnItem() {
+    public void modifyStocks_AndRemoveAnItem() {
 
         //given
         String testInput = "1\nF 50\n";
@@ -259,11 +259,144 @@ class UIMapperTest {
         setInput(testInput);
         //then
         UIMapper.modifyStocks(stockItems);
-        assertEquals("Successfully Deleted, Current Stock...", getOutput());
+        assertEquals("Successfully Deleted, Specified Stock...", getOutput());
     }
 
     @Test
-    public void modifySpecialPrice() {
+    public void modifySpecialPrice_WithInvalidOptionChar() {
+        //given
+        String testInput = "A";
+        setInput(testInput);
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
 
+        //then
+        assertEquals(NUMERIC_ERROR, getOutput());
     }
+
+    @Test
+    public void modifySpecialPrice_WithInvalidOption() {
+        //given
+        String testInput = "3";
+        setInput(testInput);
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+
+        //then
+        assertEquals(INVALID_OPTION, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AddSpecialRule_WithInValidInputFormat() {
+        //given
+        String testInput = "1\nA 4\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(ALLDETAILS_REQUIRED, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AddSpecialRule_WithInvalidInputOnlyLetters() {
+        //given
+        String testInput = "1\nAA\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(ONLY_LETTERS_AND_NUMBERS_ALLOWED, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AddSpecialRule_WithAZeroDiscountPrice() {
+        //given
+        String testInput = "1\nA 6 0\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(PRICE_ZERO, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AddSpecialRule_WithAValidInput() throws ExceptionHandling {
+        //given
+        String testInput = "1\nA 6 90\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals("A 6 90", getOutput());
+        specialOffers.removeSpecialOffer('A', 6, SPECIALPRICES_FILE);
+    }
+
+    @Test
+    public void modifySpecialPrice_AddSpecialRule_WithExistingRule() {
+        //given
+        String testInput = "1\nA 3 90\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(PRICINGRULE_EXIST, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AndRemoveSpecialRule_WithInValidInputFormat() {
+        //given
+        String testInput = "2\nA A\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(ONLY_LETTERS_AND_NUMBERS_ALLOWED, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AndRemoveSpecialRule_WithInvalidInput() {
+        //given
+        String testInput = "2\nA 4 A\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(ALLDETAILS_REQUIRED, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AndRemoveSpecialRule_WithNoneExistingRule() {
+        //given
+        String testInput = "2\nA 6\n";
+        setInput(testInput);
+
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        //then
+        assertEquals(PRICINGRULE_NOTPRESENT, getOutput());
+    }
+
+    @Test
+    public void modifySpecialPrice_AndRemoveSpecialRule() {
+
+        //given
+        String testInput = "1\nA 5 180\n";
+        setInput(testInput);
+        //when
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        testInput = "2\nA 5\n";
+        setInput(testInput);
+        //then
+        UIMapper.modifySpecialPrice(stockItems, specialOffers);
+        assertEquals("Successfully Deleted, Specified Rule...", getOutput());
+    }
+
+
 }
